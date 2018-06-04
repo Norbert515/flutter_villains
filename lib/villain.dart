@@ -127,7 +127,7 @@ class PreferredSizeProxyVillain extends Villain implements PreferredSizeWidget {
 
   final VillainBuilder villainBuilder;
 
-  PreferredSizeProxyVillain({this.villainBuilder, this.child, bool animateEntrance, bool animateExit}): super(child: child, animateEntrance: animateEntrance, animateExit: animateExit);
+  PreferredSizeProxyVillain({this.villainBuilder, this.child, bool animateEntrance = true, bool animateExit = true}): super(child: child, animateEntrance: animateEntrance, animateExit: animateExit);
   @override
   State<StatefulWidget> createState() => new _PreferredSizeProxyVillainState();
 
@@ -152,7 +152,7 @@ class ScaleVillain extends Villain {
   final double fromFactor;
 
 
-  ScaleVillain({this.alignment = Alignment.center, this.fromFactor = 2.0, Widget child}): super(child:child);
+  ScaleVillain({this.alignment = Alignment.center, this.fromFactor = 2.0, Widget child, bool animateEntrance = true, bool animateExit = true}): super(child:child, animateEntrance: animateEntrance, animateExit: animateExit);
 
   @override
   State<StatefulWidget> createState() => new _ScaleVillainState();

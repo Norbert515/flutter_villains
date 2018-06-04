@@ -74,7 +74,11 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
           ],
         ),
       ),
-      floatingActionButton: new ScaleVillain(child: new FloatingActionButton(onPressed: (){}, child: new Icon(Icons.add),)),
+      floatingActionButton: new ScaleVillain(
+          child: new FloatingActionButton(onPressed: (){}, child: new Icon(Icons.add),),
+        fromFactor: 4.0,
+        animateExit: false,
+      ),
     );
   }
 }

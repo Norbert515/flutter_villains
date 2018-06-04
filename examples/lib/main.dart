@@ -2,6 +2,7 @@ import 'package:examples/colums/ColumsPage.dart';
 import 'package:examples/shrine/shrine_demo.dart';
 import 'package:examples/gallery/villain_transition.dart';
 import 'package:examples/simple/hero_transitions.dart';
+import 'package:examples/villains_without_heroes/villain_without_heroes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_villains/villain.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         'gallery': (_) => new ShrineDemo(),
         'simple': (_) => new HeroTransitionPage(),
         'columns': (_) => new ColumnsPage(),
+        'no_heroes': (_) => new VillainWithoutHeroes(),
       },
     );
   }
@@ -66,6 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
             new RaisedButton(
               onPressed: ()=>Navigator.of(context).pushNamed('columns'),
               child: new Text("columns"),
+            ),
+            new RaisedButton(
+              onPressed: ()=>Navigator.of(context).pushNamed('no_heroes'),
+              child: new Text("no_heroes"),
             ),
           ],
         ),

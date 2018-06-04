@@ -267,19 +267,23 @@ class _OrderPageState extends State<OrderPage> {
       scaffoldKey: scaffoldKey,
       products: widget.products,
       shoppingCart: widget.shoppingCart,
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          updateOrder(inCart: true);
-          final int n = currentOrder.quantity;
-          final String item = currentOrder.product.name;
-          showSnackBarMessage(
-            'There ${ n == 1 ? "is one $item item" : "are $n $item items" } in the shopping cart.'
-          );
-        },
-        backgroundColor: const Color(0xFF16F0F0),
-        child: const Icon(
-          Icons.add_shopping_cart,
-          color: Colors.black,
+      floatingActionButton: new ScaleVillain(
+        fromFactor: 1.3,
+        animateExit: false,
+        child: new FloatingActionButton(
+          onPressed: () {
+            updateOrder(inCart: true);
+            final int n = currentOrder.quantity;
+            final String item = currentOrder.product.name;
+            showSnackBarMessage(
+              'There ${ n == 1 ? "is one $item item" : "are $n $item items" } in the shopping cart.'
+            );
+          },
+          backgroundColor: const Color(0xFF16F0F0),
+          child: const Icon(
+            Icons.add_shopping_cart,
+            color: Colors.black,
+          ),
         ),
       ),
       body: new CustomScrollView(
