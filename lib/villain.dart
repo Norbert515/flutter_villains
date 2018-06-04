@@ -44,7 +44,7 @@ abstract class _VillainState<T extends Villain> extends State<T>{
   }
 }
 
-/// A Villain which let s you supply the animation.
+/// A Villain which gets an animation when the route changes, after the animation is done it changes to an AlwaysStoppedAnimation with the value 1
 /// Consider using an AnimatedWidget which takes an animation as input parameter which is supplied
 /// by this callback
 typedef Widget WidgetWithAnimationBuilder(Animation<double> animation);

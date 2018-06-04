@@ -1,3 +1,61 @@
+import 'package:flutter/material.dart';
+
+
+class BlankTransition extends PageRoute {
+
+  final Widget child;
+
+  BlankTransition(this.child);
+
+  @override
+  Color get barrierColor => null;
+
+  @override
+  String get barrierLabel => null;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+    return child;
+  }
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 300);
+
+}
+
+class FadeRoute extends PageRoute {
+
+  final Widget child;
+
+  FadeRoute(this.child);
+
+  @override
+  Color get barrierColor => null;
+
+  @override
+  String get barrierLabel => null;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+    return new FadeTransition(
+      opacity: animation,
+      child: child,
+    );
+  }
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 300);
+
+}
+
+
+
 class Images {
   ///
   /// This are PicasaWeb URLs and could potentially change. Ideally the PicasaWeb API should be
