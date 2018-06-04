@@ -29,6 +29,11 @@ In contrast to real world villains, these villains are **very** easy to handle.
 
 
 
+
+
+### Limitations
+The route being push ontop of is not animating because it is not on the screen anymore.
+
 Icon form https://icons8.com/ 
 
 ## Getting Started
