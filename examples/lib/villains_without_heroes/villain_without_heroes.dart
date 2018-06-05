@@ -12,13 +12,10 @@ class _VillainWithoutHeroesState extends State<VillainWithoutHeroes> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new PreferredSizeProxyVillain(
-        villainBuilder: (child) => new RelativeSlideVillain(slideDirection: SlideDirection.topToBottom, child: child,),
-        child: new AppBar(
-          title: new Text("No heroes"),
-        ),
+      appBar: new AppBar(
+        title: new Text("No heroes"),
       ),
-      floatingActionButton: new RelativeSlideVillain(slideDirection: SlideDirection.bottomToTop,child: new FloatingActionButton(onPressed: transition, child: new Icon(Icons.forward),)),
+      floatingActionButton: new FloatingActionButton(onPressed: transition, child: new Icon(Icons.forward),),
     );
   }
 
@@ -32,7 +29,7 @@ class VillainWithHeroTarget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      bottomNavigationBar: new RelativeSlideVillain(
+      bottomNavigationBar: new SlideVillain(
         slideDirection: SlideDirection.bottomToTop,
         child: new BottomNavigationBar(
             items: [
@@ -47,7 +44,18 @@ class VillainWithHeroTarget extends StatelessWidget {
             ]
         ),
       ),
-      backgroundColor: Colors.green,
+      body: new Container(
+        child: new Column(
+          children: <Widget>[
+            new SlideVillain(
+                child: new Image.network(Images.imageUrls[10]),
+              slideDirection: SlideDirection.topToBottom,
+              relativeDistance: 0.05,
+            ),
+            new Text("This is a great image", style: Theme.of(context).textTheme.display1,)
+          ],
+        )
+      ),
     );
   }
 }

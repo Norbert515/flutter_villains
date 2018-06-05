@@ -30,7 +30,7 @@ class _ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShrineTheme theme = ShrineTheme.of(context);
-    return new RelativeSlideVillain(
+    return new SlideVillain(
       slideDirection: SlideDirection.leftToRight,
       child: new Column(
         mainAxisSize: MainAxisSize.min,

@@ -50,7 +50,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new PreferredSizeProxyVillain(
-        villainBuilder: (child)=> new RelativeSlideVillain(slideDirection: SlideDirection.topToBottom, child:  child,),
+        villainBuilder: (child)=> new SlideVillain(slideDirection: SlideDirection.topToBottom, child:  child,),
         child: new AppBar(
           title: new Text("Villains"),
           backgroundColor: Colors.green,
@@ -64,7 +64,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
               tag: widget.url,
               child: new Image.network(widget.url),
             ),
-            new RelativeSlideVillain(
+            new SlideVillain(
               slideDirection: SlideDirection.bottomToTop,
               child: new Padding(
                 padding: const EdgeInsets.only(top: 32.0),
@@ -76,7 +76,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
       ),
       floatingActionButton: new ScaleVillain(
           child: new FloatingActionButton(onPressed: (){}, child: new Icon(Icons.add),),
-        fromFactor: 4.0,
+        fromFactor: 0.8,
         animateExit: false,
       ),
     );

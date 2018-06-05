@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      navigatorObservers: [new EasyTransitionController()],
+      navigatorObservers: [new VillainTransitionObserver()],
       title: 'Flutter Demo',
       theme: new ThemeData(
         primarySwatch: Colors.blue,

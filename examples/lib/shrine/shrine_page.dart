@@ -91,7 +91,7 @@ class ShrinePageState extends State<ShrinePage> {
     return new Scaffold(
       key: widget.scaffoldKey,
       appBar: new PreferredSizeProxyVillain(
-        villainBuilder: (it)=> new RelativeSlideVillain(slideDirection: SlideDirection.topToBottom, child: it,),
+        villainBuilder: (it)=> new SlideVillain(slideDirection: SlideDirection.topToBottom, child: it,),
         child: new AppBar(
           elevation: _appBarElevation,
           backgroundColor: theme.appBarBackgroundColor,

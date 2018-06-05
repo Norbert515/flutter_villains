@@ -21,7 +21,7 @@ class _ColumnsPageState extends State<ColumnsPage> {
               children: <Widget>[
                 new RaisedButton(onPressed: (){}, child: new Text("Pay now", style: Theme.of(context).textTheme.display1,),),
                 new SizedBox(height: 16.0,),
-                new RelativeSlideVillain(
+                new SlideVillain(
                   animateExit: false,
                   slideDirection: SlideDirection.bottomToTop,
                   child: new Text("Lorem ipsum und so weiter, das kann sich doch niemand wirklich merken und ich mein es macht doch kein unterschied obs jetzt latein oder deutsch ist",

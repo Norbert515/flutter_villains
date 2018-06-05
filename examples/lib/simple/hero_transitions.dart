@@ -54,7 +54,7 @@ class _HeroTransitionTargetPageState extends State<HeroTransitionTargetPage> {
           ),
         ),
       ),
-      bottomNavigationBar: new RelativeSlideVillain(
+      bottomNavigationBar: new SlideVillain(
         slideDirection: SlideDirection.bottomToTop,
         child: new BottomNavigationBar(
           items: [

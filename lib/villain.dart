@@ -78,16 +78,18 @@ enum SlideDirection {
   bottomToTop,
 }
 
-class RelativeSlideVillain extends Villain {
+class SlideVillain extends Villain {
 
   final SlideDirection slideDirection;
 
-  RelativeSlideVillain({@required this.slideDirection, Widget child, bool animateEntrance = true, bool animateExit = true}): super(child: child, animateExit: animateExit, animateEntrance: animateEntrance);
+  final double relativeDistance;
+
+  SlideVillain({@required this.slideDirection, Widget child, bool animateEntrance = true, bool animateExit = true, this.relativeDistance = 1.0}): super(child: child, animateExit: animateExit, animateEntrance: animateEntrance);
   @override
-  _RelativeSlideVillainState createState() => new _RelativeSlideVillainState();
+  _SlideVillainState createState() => new _SlideVillainState();
 }
 
-class _RelativeSlideVillainState extends _VillainState<RelativeSlideVillain>{
+class _SlideVillainState extends _VillainState<SlideVillain>{
 
   @override
   Widget build(BuildContext context) {
@@ -95,16 +97,16 @@ class _RelativeSlideVillainState extends _VillainState<RelativeSlideVillain>{
 
     switch(widget.slideDirection) {
       case SlideDirection.topToBottom:
-        start = const Offset(0.0, -1.0);
+        start = new Offset(0.0, -widget.relativeDistance);
         break;
       case SlideDirection.leftToRight:
-        start = const Offset(-1.0, 0.0);
+        start = new Offset(-widget.relativeDistance, 0.0);
         break;
       case SlideDirection.rightToLeft:
-        start = const Offset(1.0, 0.0);
+        start = new Offset(widget.relativeDistance, 0.0);
         break;
       case SlideDirection.bottomToTop:
-        start = const Offset(0.0, 1.0);
+        start = new Offset(0.0, widget.relativeDistance);
         break;
     }
 
@@ -171,7 +173,7 @@ class _ScaleVillainState extends _VillainState<ScaleVillain> {
 
 
 
-class EasyTransitionController extends NavigatorObserver {
+class VillainTransitionObserver extends NavigatorObserver {
 
   // Returns a map of all of the heroes in context, indexed by hero tag.
   static List<_VillainState> _allVillainssFor(BuildContext context) {
@@ -248,9 +250,9 @@ class EasyTransitionController extends NavigatorObserver {
       return;
     }
 
-    List<_VillainState> villains = EasyTransitionController
+    List<_VillainState> villains = VillainTransitionObserver
         ._allVillainssFor(to.subtreeContext);
-    List<_VillainState> villains2 = EasyTransitionController
+    List<_VillainState> villains2 = VillainTransitionObserver
         ._allVillainssFor(from.subtreeContext);
 
     for (_VillainState villain in villains) {
