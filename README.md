@@ -22,6 +22,8 @@ TK insert animated mock graphic
 
 The animation duration of the villains is exactly the same as the page transition.
 
+Villains work best with routes with no moving route transitions (like MaterialPageRoute or CupertinoPageRoute) because too many animations distract the user. Though they can also work with those when animation in the same direction:
+Tk insert columns example
 
 
 
