@@ -16,11 +16,12 @@ TK insert animated mock graphic
 
 ### What villains are not
 
-- hard to use components
+- hard to use
 - A way to build very complex animations.
+- Confusing people by adding more complexity
 
 
-The animation duration of the villains is exactly the same as the page transition.
+##### The animation duration of the villains is exactly the same as the page transition.
 
 Villains work best with routes with no moving route transitions (like MaterialPageRoute or CupertinoPageRoute) because too many animations distract the user. Though they can also work with those when animation in the same direction:
 Tk insert columns example
