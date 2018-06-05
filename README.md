@@ -28,6 +28,13 @@ Tk insert columns example
 
 
 
+
+## Features:
+The villain framework takes care of:
+- managing page transition callbacks
+- supplying animations
+- providing premade common animations
+
 In contrast to real world villains, these villains are **very** easy to handle.
 
 
