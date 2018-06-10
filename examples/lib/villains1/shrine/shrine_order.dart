@@ -4,9 +4,9 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_villains/villain.dart';
+import 'package:flutter_villains/villains.dart';
 
-import 'package:examples/shrine/shrine_demo.dart' show ShrinePageRoute;
+import 'package:examples/villains1/shrine/shrine_demo.dart' show ShrinePageRoute;
 import 'shrine_page.dart';
 import 'shrine_theme.dart';
 import 'shrine_types.dart';

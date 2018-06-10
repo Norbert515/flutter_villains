@@ -1,11 +1,11 @@
-import 'package:examples/colums/ColumsPage.dart';
-import 'package:examples/shrine/shrine_demo.dart';
-import 'package:examples/gallery/villain_transition.dart';
-import 'package:examples/simple/hero_transitions.dart';
-import 'package:examples/villains_without_heroes/villain_without_heroes.dart';
+import 'package:examples/villains1/colums/ColumsPage.dart';
+import 'package:examples/villains1/gallery/villain_transition.dart';
+import 'package:examples/villains1/shrine/shrine_demo.dart';
+import 'package:examples/villains1/simple/hero_transitions.dart';
+import 'package:examples/villains1/villains_without_heroes/villain_without_heroes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_villains/villain.dart';
+import 'package:flutter_villains/villains.dart';
 
 void main() {
  // timeDilation = 2.5;
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         'simple': (_) => new HeroTransitionPage(),
         'columns': (_) => new ColumnsPage(),
         'no_heroes': (_) => new VillainWithoutHeroes(),
+
       },
     );
   }
@@ -73,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: ()=>Navigator.of(context).pushNamed('no_heroes'),
               child: new Text("no_heroes"),
             ),
+
           ],
         ),
       ),

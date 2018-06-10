@@ -13,6 +13,12 @@ abstract class Villain extends StatefulWidget {
 
 }
 
+/// Villain & Villain transition
+/// villain = hero (usage)
+/// specify a villain transition
+/// have const statics of basic ones (like align does) !!! static consts predefine stuff
+/// RouteTransitionsBuilder
+///
 abstract class _VillainState<T extends Villain> extends State<T>{
 
   Animation<double> _animation;
@@ -47,14 +53,14 @@ abstract class _VillainState<T extends Villain> extends State<T>{
 /// A Villain which gets an animation when the route changes, after the animation is done it changes to an AlwaysStoppedAnimation with the value 1
 /// Consider using an AnimatedWidget which takes an animation as input parameter which is supplied
 /// by this callback
-typedef Widget WidgetWithAnimationBuilder(Animation<double> animation);
+typedef Widget WidgetWithAnimationBuilder(BuildContext context, Animation<double> animation);
 
 class CustomVillain extends Villain {
 
 
   final WidgetWithAnimationBuilder builder;
 
-  CustomVillain(this.builder);
+  CustomVillain({@required this.builder, Widget child}) : super(child: child);
 
   @override
   _CustomVillainState createState() => new _CustomVillainState();
@@ -63,7 +69,7 @@ class CustomVillain extends Villain {
 class _CustomVillainState extends _VillainState<CustomVillain>{
   @override
   Widget build(BuildContext context) {
-    return widget.builder(getTween());
+    return widget.builder(context, getTween());
   }
 }
 
