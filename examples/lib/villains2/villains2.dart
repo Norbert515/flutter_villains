@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_villains/villains2.dart';
 
 void main() => runApp(new MyApp());
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
 /// Its all inside the page transition duration? Some way to customize but also have easy API
 /// static const
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget{
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
@@ -28,7 +29,9 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>{
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
           new Expanded(child: new SizedBox(),),
           new Villain(
             animation: Villains.slideInFromRight,
+            tag: 0,
+            from: Duration(seconds: 3),
+
             child: new Text("from below")
           )
         ],
