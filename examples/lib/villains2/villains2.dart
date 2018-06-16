@@ -1,58 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_villains/villains2.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
+      navigatorObservers: [VillainTransitionObserver()],
       title: 'Flutter Demo',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-
-/// Easy to use even without custom RoutePages
-/// Its all inside the page transition duration? Some way to customize but also have easy API
-/// static const
-
-class MyHomePage extends StatefulWidget{
+class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>{
-
-
-
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
-      ),
-      body: new Column(
-        children: <Widget>[
-          new Text("from the side"),
-          new Expanded(child: new SizedBox(),),
-          new Villain(
-            animation: Villains.slideInFromRight,
-            tag: 0,
-            from: Duration(seconds: 3),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child: RaisedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (c) {
+                return MyHomePage2();
+              }));
+            },
+            child: Text("Next page"),
+          ),
+        ));
+  }
+}
 
-            child: new Text("from below")
+class MyHomePage2 extends StatefulWidget {
+  MyHomePage2({Key key}) : super(key: key);
+
+  @override
+  _MyHomePageState2 createState() => _MyHomePageState2();
+}
+
+class _MyHomePageState2 extends State<MyHomePage2> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Page 2"),
+      ),
+      body: Column(
+        children: <Widget>[
+          Text("from the side"),
+          Villain(
+            villainAnimation: VillainAnimation.fadeIn,
+            child: Villain(
+                villainAnimation: VillainAnimation.fromLeftToRight
+                  ..to = Duration(milliseconds: 600),
+                child: Text("from below")),
           )
         ],
       ),
     );
   }
 }
-
