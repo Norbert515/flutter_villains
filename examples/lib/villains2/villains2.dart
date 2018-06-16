@@ -68,7 +68,10 @@ class _MyHomePageState2 extends State<MyHomePage2> {
                 villainAnimation: VillainAnimation.fromLeftToRight
                   ..to = Duration(milliseconds: 600),
                 child: Text("from below")),
-          )
+          ),
+          RaisedButton(onPressed: (){
+            VillainController.playAllVillains(context);
+          }, child: Text("Play villain animations"),),
         ],
       ),
     );

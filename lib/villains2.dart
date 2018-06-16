@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
@@ -6,11 +8,33 @@ import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 
 class VillainController {
 
-  TickerFuture playAllVillains(BuildContext context) {
+  static Future playAllVillains(BuildContext context) {
+    List<_VillainState> villains = VillainController._allVillainssFor(context);
+
+
+    // Controller for the new page animation because it can be longer then the actual page transition
+
+    AnimationController controller = new AnimationController(vsync: new TransitionTickerProvider());
+
+    SequenceAnimationBuilder builder = new SequenceAnimationBuilder();
+
+    for (_VillainState villain in villains) {
+      builder.addAnimatable(
+          anim: Tween<double>(begin: 0.0, end: 1.0), from: villain.widget.villainAnimation.from, to: villain.widget.villainAnimation.to, tag: villain.hashCode);
+    }
+
+    SequenceAnimation sequenceAnimation = builder.animate(controller);
+
+    for (_VillainState villain in villains) {
+      villain.startAnimation(sequenceAnimation[villain.hashCode]);
+    }
+
+    //Start the animation
+    return controller.forward().then((_){
+      controller.dispose();
+    });
 
   }
-
-
 
   // Returns a map of all of the heroes in context, indexed by hero tag.
   static List<_VillainState> _allVillainssFor(BuildContext context) {
@@ -20,8 +44,6 @@ class VillainController {
     void visitor(Element element) {
       if (element.widget is Villain) {
         final StatefulElement villain = element;
-        final Villain heroWidget = element.widget;
-
         final _VillainState villainState = villain.state;
         villains.add(villainState);
       }
@@ -144,6 +166,31 @@ class VillainAnimation {
           child: child,
         );
       });
+
+
+  static VillainAnimation scaleDown = VillainAnimation(
+      animatable: Tween<double>(begin: 2.0, end: 1.0),
+      animatedWidgetBuilder: (animation, child) {
+        return ScaleTransition(
+          scale: animation,
+          child: child,
+        );
+      });
+
+  static VillainAnimation scaleUp = VillainAnimation(
+      animatable: Tween<double>(begin: 0.0, end: 1.0),
+      animatedWidgetBuilder: (animation, child) {
+        return ScaleTransition(
+          scale: animation,
+          child: child,
+        );
+      });
+
+  //TODO custom villain FAB reveal
+
+
+//TODO Tabcontrooler like villains, VillainController Widget, DefaultVillain InheritedWidget
+//TODO DefaultTagController look at
 }
 
 class VillainTransitionObserver extends NavigatorObserver {
@@ -199,27 +246,12 @@ class VillainTransitionObserver extends NavigatorObserver {
       return;
     }
 
-    List<_VillainState> villains = VillainController._allVillainssFor(to.subtreeContext);
+    VillainController.playAllVillains(to.subtreeContext);
+
     List<_VillainState> villains2 = VillainController._allVillainssFor(from.subtreeContext);
 
-    // Controller for the new page animation because it can be longer then the actual page transition
-    AnimationController controller = new AnimationController(vsync: new TransitionTickerProvider());
 
-    SequenceAnimationBuilder builder = new SequenceAnimationBuilder();
-
-    for (_VillainState villain in villains) {
-      builder.addAnimatable(
-          anim: Tween<double>(begin: 0.0, end: 1.0), from: villain.widget.villainAnimation.from, to: villain.widget.villainAnimation.to, tag: villain.hashCode);
-    }
-
-    SequenceAnimation sequenceAnimation = builder.animate(controller);
-
-    for (_VillainState villain in villains) {
-      villain.startAnimation(sequenceAnimation[villain.hashCode]);
-    }
-
-    //Start the animation
-    controller.forward();
+    //TODO handle timing when animation out
 
     //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
     //would be useless
@@ -230,17 +262,9 @@ class VillainTransitionObserver extends NavigatorObserver {
 }
 
 class TransitionTickerProvider implements TickerProvider {
-  Ticker _ticker;
 
   @override
   Ticker createTicker(TickerCallback onTick) {
-    _ticker = new Ticker(onTick, debugLabel: 'created by $this');
-    return _ticker;
-  }
-
-  void dispose() {
-    _ticker.stop();
-    _ticker.dispose();
-    _ticker = null;
+    return new Ticker(onTick, debugLabel: 'created by $this');
   }
 }
