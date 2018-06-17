@@ -64,6 +64,8 @@ class _MyHomePageState2 extends State<MyHomePage2> with SingleTickerProviderStat
     super.initState();
     controller = new VillainController(sync: this);
 
+    controller.controller.duration = Duration(seconds: 1);
+
     controller.forward();
 
   }

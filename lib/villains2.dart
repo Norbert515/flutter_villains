@@ -166,9 +166,16 @@ class _VillainState extends State<Villain> {
   @override
   void initState() {
     super.initState();
-    _villainController = widget.controller ?? DefaultVillainController.of(context);
   }
 
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _villainController = widget.controller ?? DefaultVillainController.of(context);
+    });
+  }
 
   @override
   void didUpdateWidget(Villain oldWidget) {
@@ -194,7 +201,7 @@ class _VillainState extends State<Villain> {
         //TODO better tag?
         tag: hashCode
     );
-    return builder.animate(widget.controller.controller)[hashCode];
+    return builder.animate(_villainController.controller)[hashCode];
   }
 
 
