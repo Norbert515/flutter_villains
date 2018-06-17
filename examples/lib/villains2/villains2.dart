@@ -7,7 +7,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorObservers: [VillainTransitionObserver()],
+      //TODO add back observer
+    //  navigatorObservers: [VillainTransitionObserver()],
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -70,6 +71,7 @@ class _MyHomePageState2 extends State<MyHomePage2> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return DefaultVillainController(
+      controller: controller,
       child: Scaffold(
         appBar: AppBar(
           title: Text("Page 2"),
@@ -78,7 +80,6 @@ class _MyHomePageState2 extends State<MyHomePage2> with SingleTickerProviderStat
           children: <Widget>[
             Text("from the side"),
             Villain(
-              controller: controller,
               villainAnimation: VillainAnimation.fadeIn,
               child: Villain(
                   villainAnimation: VillainAnimation.fromLeftToRight

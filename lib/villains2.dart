@@ -12,36 +12,53 @@ class DefaultVillainController extends StatefulWidget {
 
   const DefaultVillainController({Key key, this.child, this.controller}) : super(key: key);
 
+
+  static VillainController of(BuildContext context) {
+    final _VillainControllerScope scope = context.inheritFromWidgetOfExactType(_VillainControllerScope);
+    return scope?.controller;
+  }
+
+
   @override
   _DefaultVillainControllerState createState() => new _DefaultVillainControllerState();
 }
 
 class _DefaultVillainControllerState extends State<DefaultVillainController> with SingleTickerProviderStateMixin{
 
-  VillainController villainController;
+  VillainController _villainController;
 
-  //TODO hook up widget.controller
+
   @override
   void initState() {
     super.initState();
-    villainController = new VillainController(sync: this);
+    _villainController = widget.controller ?? new VillainController(sync: this);
   }
 
 
+  @override
+  void didUpdateWidget(DefaultVillainController oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(widget.controller != oldWidget.controller) {
+      setState(() {
+        _villainController = widget.controller ?? new VillainController(sync: this);
+      });
+    }
+  }
+
   TickerFuture forward() {
-    return villainController.controller.forward();
+    return _villainController.controller.forward();
   }
 
   @override
   void dispose() {
-    villainController.dispose();
+    _villainController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return new _VillainControllerScope(
-      controller: villainController,
+      controller: _villainController,
       child: widget.child,
     );
   }
@@ -67,6 +84,7 @@ class VillainController {
 
 
   AnimationController controller;
+
 
   VillainController({@required TickerProvider sync }):
   controller = new AnimationController(vsync: sync);
@@ -142,12 +160,29 @@ class Villain extends StatefulWidget {
 
 class _VillainState extends State<Villain> {
 
-  //TODO controller default switching to this etc
+
+  VillainController _villainController;
+
+  @override
+  void initState() {
+    super.initState();
+    _villainController = widget.controller ?? DefaultVillainController.of(context);
+  }
+
+
+  @override
+  void didUpdateWidget(Villain oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(widget.controller != oldWidget.controller) {
+      setState(() {
+        _villainController = widget.controller ?? DefaultVillainController.of(context);
+      });
+    }
+  }
+
 
   //TODO villaincontroller dives a sequence animation IN HERE sequencanimation is only used for the curve
 
-
-  //TODO did change dependecy etc see tabcontroller
 
   //TODO  cache
   Animation getAnimation() {
@@ -167,6 +202,7 @@ class _VillainState extends State<Villain> {
   Widget build(BuildContext context) {
     return widget.villainAnimation.animatedWidgetBuilder(widget.villainAnimation.animatable.animate(getAnimation()), widget.child);
   }
+
 }
 
 typedef Widget AnimatedWidgetBuilder(Animation animation, Widget child);
