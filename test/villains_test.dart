@@ -43,7 +43,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
     child: Center(
       child: Villain(
         villainAnimation: VillainAnimation.scaleAnimation(2.0, 0.1)
-        ..to = Duration(seconds: 3),
+          ..to = Duration(seconds: 3),
         child: Container(
           width: 200.0,
           height: 200.0,
@@ -89,7 +89,7 @@ void main() {
 
     await tester.tap(find.byKey(openRoute1));
     await tester.pump();
-    print(find.byType(Container).evaluate().first.renderObject.paintBounds.width);
+    print(find.byType(Container).evaluate().first.renderObject.semanticBounds.width);
     expect(find.byType(Container).evaluate().first.renderObject.paintBounds.width < 200 , true);
 
 

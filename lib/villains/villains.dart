@@ -17,7 +17,9 @@ class VillainController {
 
     // Controller for the new page animation because it can be longer then the actual page transition
 
-    AnimationController controller = new AnimationController(vsync: TransitionTickerProvider());
+
+
+    AnimationController controller = new AnimationController(vsync: TransitionTickerProvider(TickerMode.of(context)));
 
     SequenceAnimationBuilder builder = new SequenceAnimationBuilder();
 
@@ -293,8 +295,15 @@ class VillainTransitionObserver extends NavigatorObserver {
 }
 
 class TransitionTickerProvider implements TickerProvider {
+
+  final bool muted;
+
+  TransitionTickerProvider(this.muted);
+
+
   @override
   Ticker createTicker(TickerCallback onTick) {
-    return new Ticker(onTick, debugLabel: 'created by $this');
+    return new Ticker(onTick, debugLabel: 'created by $this')
+    ..muted = this.muted;
   }
 }
