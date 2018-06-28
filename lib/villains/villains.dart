@@ -17,16 +17,18 @@ class VillainController {
 
     // Controller for the new page animation because it can be longer then the actual page transition
 
+    //TODO test tickermode
     AnimationController controller = new AnimationController(vsync: TransitionTickerProvider(TickerMode.of(context)));
 
     SequenceAnimationBuilder builder = new SequenceAnimationBuilder();
 
     for (_VillainState villain in villains) {
       builder.addAnimatable(
-          anim: Tween<double>(begin: 0.0, end: 1.0),
-          from: villain.widget.villainAnimation.from,
-          to: villain.widget.villainAnimation.to,
-          tag: villain.hashCode,);
+        anim: Tween<double>(begin: 0.0, end: 1.0),
+        from: villain.widget.villainAnimation.from,
+        to: villain.widget.villainAnimation.to,
+        tag: villain.hashCode,
+      );
     }
 
     SequenceAnimation sequenceAnimation = builder.animate(controller);
@@ -82,16 +84,15 @@ class Villain extends StatefulWidget {
 class _VillainState extends State<Villain> {
   Animation<double> _controllerAnimation;
 
-  bool atTheEnd;
-
+  bool _atTheEnd;
 
   @override
   void initState() {
     super.initState();
-    if(widget.animateEntrance == true) {
-      atTheEnd = false;
+    if (widget.animateEntrance == true) {
+      _atTheEnd = false;
     } else {
-      atTheEnd = true;
+      _atTheEnd = true;
     }
   }
 
@@ -99,7 +100,7 @@ class _VillainState extends State<Villain> {
     assert(animation != null);
     _controllerAnimation?.removeStatusListener(_handleStatusChange);
     setState(() {
-      atTheEnd = false;
+      _atTheEnd = false;
       this._controllerAnimation = animation;
     });
     animation.addStatusListener(_handleStatusChange);
@@ -109,7 +110,7 @@ class _VillainState extends State<Villain> {
     if (_controllerAnimation != null) {
       return _controllerAnimation;
     }
-    if (atTheEnd) {
+    if (_atTheEnd) {
       return AlwaysStoppedAnimation<double>(1.0);
     } else {
       return AlwaysStoppedAnimation<double>(0.0);
@@ -121,7 +122,7 @@ class _VillainState extends State<Villain> {
       if (_controllerAnimation != null) {
         _controllerAnimation.removeStatusListener(_handleStatusChange);
         setState(() {
-          atTheEnd = true;
+          _atTheEnd = true;
           _controllerAnimation = null;
         });
       }
@@ -255,8 +256,6 @@ class VillainAnimation {
 
 //TODO custom villain FAB reveal
 
-//TODO Tabcontrooler like villains, VillainController Widget, DefaultVillain InheritedWidget
-//TODO DefaultTagController look at
 }
 
 class VillainTransitionObserver extends NavigatorObserver {
@@ -267,14 +266,14 @@ class VillainTransitionObserver extends NavigatorObserver {
   void didPush(Route<dynamic> route, Route<dynamic> previousRoute) {
     assert(navigator != null);
     assert(route != null);
-    _maybeStartHeroTransition(previousRoute, route);
+    _prepareVillainTransition(previousRoute, route);
   }
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
     assert(navigator != null);
     assert(route != null);
-    _maybeStartHeroTransition(route, previousRoute);
+    _prepareVillainTransition(route, previousRoute);
   }
 
   @override
@@ -287,7 +286,7 @@ class VillainTransitionObserver extends NavigatorObserver {
     _questsEnabled = true;
   }
 
-  void _maybeStartHeroTransition(Route<dynamic> fromRoute, Route<dynamic> toRoute) {
+  void _prepareVillainTransition(Route<dynamic> fromRoute, Route<dynamic> toRoute) {
     if (_questsEnabled && toRoute != fromRoute && toRoute is PageRoute<dynamic> && fromRoute is PageRoute<dynamic>) {
       final PageRoute<dynamic> from = fromRoute;
       final PageRoute<dynamic> to = toRoute;
@@ -298,12 +297,12 @@ class VillainTransitionObserver extends NavigatorObserver {
       //   to.offstage = to.animation.value == 0.0;
 
       WidgetsBinding.instance.addPostFrameCallback((Duration value) {
-        _startHeroTransition(from, to);
+        _startVillainTransition(from, to);
       });
     }
   }
 
-  void _startHeroTransition(PageRoute from, PageRoute to) {
+  void _startVillainTransition(PageRoute from, PageRoute to) {
     // If the navigator or one of the routes subtrees was removed before this
     // end-of-frame callback was called, then don't actually start a transition.
     if (navigator == null || from.subtreeContext == null || to.subtreeContext == null) {
@@ -315,7 +314,6 @@ class VillainTransitionObserver extends NavigatorObserver {
 
     List<_VillainState> villains2 = VillainController._allVillainssFor(from.subtreeContext);
 
-    //TODO add curve to move out animation
     //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
     //would be useless
     for (_VillainState villain in villains2) {

@@ -1,6 +1,5 @@
 import 'package:examples/villains1/gallery/villain_transition.dart';
 import 'package:examples/villains1/profile/profile.dart';
-import 'package:examples/villains1/simple/hero_transitions.dart';
 import 'package:examples/villains1/villains_without_heroes/villain_without_heroes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -23,7 +22,6 @@ class MyApp extends StatelessWidget {
       home: new MyHomePage(title: 'Flutter Demo Home Page'),
       routes: {
         'grid': (_) => new PictureGridPage(),
-        'simple': (_) => new HeroTransitionPage(),
         'no_heroes': (_) => new VillainWithoutHeroes(),
         'profile': (_) => new ProfilePage(),
         'profile_page_2': (_) => new ProfilePage2(),
@@ -56,15 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
             new RaisedButton(
                 onPressed: ()=>Navigator.of(context).pushNamed('grid'),
               child: new Text("Grid"),
-            ),
-
-            new RaisedButton(
-              onPressed: ()=>Navigator.of(context).pushNamed('simple'),
-              child: new Text("simple"),
-            ),
-            new RaisedButton(
-              onPressed: ()=>Navigator.of(context).pushNamed('no_heroes'),
-              child: new Text("no_heroes"),
             ),
             new RaisedButton(
               onPressed: ()=>Navigator.of(context).pushNamed('profile'),
