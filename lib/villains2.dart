@@ -4,17 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 
-
-
 class VillainController {
-
   static Future playAllVillains(BuildContext context) {
     List<_VillainState> villains = VillainController._allVillainssFor(context);
 
-
     // Controller for the new page animation because it can be longer then the actual page transition
 
-    AnimationController controller = new AnimationController(vsync: new TransitionTickerProvider());
+    AnimationController controller = new AnimationController(vsync: TransitionTickerProvider());
 
     SequenceAnimationBuilder builder = new SequenceAnimationBuilder();
 
@@ -30,10 +26,9 @@ class VillainController {
     }
 
     //Start the animation
-    return controller.forward().then((_){
+    return controller.forward().then((_) {
       controller.dispose();
     });
-
   }
 
   // Returns a map of all of the heroes in context, indexed by hero tag.
@@ -69,29 +64,38 @@ class Villain extends StatefulWidget {
 }
 
 class _VillainState extends State<Villain> {
-  Animation<double> _animation;
+  Animation<double> _controllerAnimation;
+
+  bool atTheEnd = false;
 
   void startAnimation(Animation<double> animation) {
     assert(animation != null);
+    _controllerAnimation?.removeStatusListener(_handleStatusChange);
     setState(() {
-      this._animation = animation;
+      atTheEnd = false;
+      this._controllerAnimation = animation;
     });
     animation.addStatusListener(_handleStatusChange);
   }
 
-  Animation<double> getTween() {
-    if (_animation != null) {
-      return _animation;
+  get _animation {
+    if (_controllerAnimation != null) {
+      return _controllerAnimation;
     }
-    return new AlwaysStoppedAnimation<double>(1.0);
+    if (atTheEnd) {
+      return AlwaysStoppedAnimation<double>(1.0);
+    } else {
+      return AlwaysStoppedAnimation<double>(0.0);
+    }
   }
 
   void _handleStatusChange(AnimationStatus status) {
     if (status == AnimationStatus.dismissed || status == AnimationStatus.completed) {
-      if (_animation != null) {
-        _animation.removeStatusListener(_handleStatusChange);
+      if (_controllerAnimation != null) {
+        _controllerAnimation.removeStatusListener(_handleStatusChange);
         setState(() {
-          _animation = null;
+          atTheEnd = true;
+          _controllerAnimation = null;
         });
       }
     }
@@ -99,7 +103,7 @@ class _VillainState extends State<Villain> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.villainAnimation.animatedWidgetBuilder(widget.villainAnimation.animatable.animate(getTween()), widget.child);
+    return widget.villainAnimation.animatedWidgetBuilder(widget.villainAnimation.animatable.animate(_animation), widget.child);
   }
 }
 
@@ -115,12 +119,6 @@ class VillainAnimation {
 
   /// [form] defaults to 0 and [to] defaults to the [MaterialPageRoute] transition duration which is 300 ms
   VillainAnimation({this.animatedWidgetBuilder, this.animatable, this.from = Duration.zero, this.to = const Duration(milliseconds: 300)});
-
-
-
-
-
-
 
   static VillainAnimation fromLeftToRight = VillainAnimation(
       animatable: Tween<Offset>(begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0)),
@@ -167,7 +165,6 @@ class VillainAnimation {
         );
       });
 
-
   static VillainAnimation scaleDown = VillainAnimation(
       animatable: Tween<double>(begin: 2.0, end: 1.0),
       animatedWidgetBuilder: (animation, child) {
@@ -186,15 +183,13 @@ class VillainAnimation {
         );
       });
 
-  //TODO custom villain FAB reveal
-
+//TODO custom villain FAB reveal
 
 //TODO Tabcontrooler like villains, VillainController Widget, DefaultVillain InheritedWidget
 //TODO DefaultTagController look at
 }
 
 class VillainTransitionObserver extends NavigatorObserver {
-
   // Disable Hero animations while a user gesture is controlling the navigation.
   bool _questsEnabled = true;
 
@@ -250,7 +245,6 @@ class VillainTransitionObserver extends NavigatorObserver {
 
     List<_VillainState> villains2 = VillainController._allVillainssFor(from.subtreeContext);
 
-
     //TODO handle timing when animation out
 
     //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
@@ -262,7 +256,6 @@ class VillainTransitionObserver extends NavigatorObserver {
 }
 
 class TransitionTickerProvider implements TickerProvider {
-
   @override
   Ticker createTicker(TickerCallback onTick) {
     return new Ticker(onTick, debugLabel: 'created by $this');
