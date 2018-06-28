@@ -17,15 +17,16 @@ class VillainController {
 
     // Controller for the new page animation because it can be longer then the actual page transition
 
-
-
     AnimationController controller = new AnimationController(vsync: TransitionTickerProvider(TickerMode.of(context)));
 
     SequenceAnimationBuilder builder = new SequenceAnimationBuilder();
 
     for (_VillainState villain in villains) {
       builder.addAnimatable(
-          anim: Tween<double>(begin: 0.0, end: 1.0), from: villain.widget.villainAnimation.from, to: villain.widget.villainAnimation.to, tag: villain.hashCode, curve: villain.widget.villainAnimation.curve);
+          anim: Tween<double>(begin: 0.0, end: 1.0),
+          from: villain.widget.villainAnimation.from,
+          to: villain.widget.villainAnimation.to,
+          tag: villain.hashCode,);
     }
 
     SequenceAnimation sequenceAnimation = builder.animate(controller);
@@ -62,12 +63,15 @@ class VillainController {
 class Villain extends StatefulWidget {
   final VillainAnimation villainAnimation;
 
+  final VillainAnimation secondaryVillainAnimation;
+
   final Widget child;
 
   final bool animateEntrance;
   final bool animateExit;
 
-  const Villain({Key key, @required this.villainAnimation, this.child, this.animateEntrance = true, this.animateExit = true}) : super(key: key);
+  const Villain({Key key, @required this.villainAnimation, this.secondaryVillainAnimation, this.child, this.animateEntrance = true, this.animateExit = true})
+      : super(key: key);
 
   @override
   _VillainState createState() {
@@ -78,7 +82,18 @@ class Villain extends StatefulWidget {
 class _VillainState extends State<Villain> {
   Animation<double> _controllerAnimation;
 
-  bool atTheEnd = false;
+  bool atTheEnd;
+
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.animateEntrance == true) {
+      atTheEnd = false;
+    } else {
+      atTheEnd = true;
+    }
+  }
 
   void startAnimation(Animation<double> animation) {
     assert(animation != null);
@@ -115,7 +130,14 @@ class _VillainState extends State<Villain> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.villainAnimation.animatedWidgetBuilder(widget.villainAnimation.animatable.animate(_animation), widget.child);
+    Widget animatedWidget = widget.villainAnimation
+        .animatedWidgetBuilder(widget.villainAnimation.animatable.chain(CurveTween(curve: widget.villainAnimation.curve)).animate(_animation), widget.child);
+    if (widget.secondaryVillainAnimation != null) {
+      animatedWidget = widget.secondaryVillainAnimation.animatedWidgetBuilder(
+          widget.secondaryVillainAnimation.animatable.chain(CurveTween(curve: widget.secondaryVillainAnimation.curve)).animate(_animation), animatedWidget);
+    }
+
+    return animatedWidget;
   }
 }
 
@@ -171,7 +193,18 @@ class VillainAnimation {
         );
       });
 
-  static VillainAnimation fadeIn = VillainAnimation(
+  static VillainAnimation fromBottomToTop2(double relativeOffset) {
+    return VillainAnimation(
+        animatable: Tween<Offset>(begin: Offset(0.0, relativeOffset), end: Offset(0.0, 0.0)),
+        animatedWidgetBuilder: (animation, child) {
+          return SlideTransition(
+            position: animation,
+            child: child,
+          );
+        });
+  }
+
+  static VillainAnimation fade = VillainAnimation(
       animatable: Tween<double>(begin: 0.0, end: 1.0),
       animatedWidgetBuilder: (animation, child) {
         return FadeTransition(
@@ -282,7 +315,6 @@ class VillainTransitionObserver extends NavigatorObserver {
 
     List<_VillainState> villains2 = VillainController._allVillainssFor(from.subtreeContext);
 
-
     //TODO add curve to move out animation
     //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
     //would be useless
@@ -295,15 +327,12 @@ class VillainTransitionObserver extends NavigatorObserver {
 }
 
 class TransitionTickerProvider implements TickerProvider {
+  final bool enabled;
 
-  final bool muted;
-
-  TransitionTickerProvider(this.muted);
-
+  TransitionTickerProvider(this.enabled);
 
   @override
   Ticker createTicker(TickerCallback onTick) {
-    return new Ticker(onTick, debugLabel: 'created by $this')
-    ..muted = this.muted;
+    return new Ticker(onTick, debugLabel: 'created by $this')..muted = !this.enabled;
   }
 }

@@ -64,7 +64,7 @@ class _MyHomePageState2 extends State<MyHomePage2> {
         children: <Widget>[
           Text("from the side"),
           Villain(
-            villainAnimation: VillainAnimation.fadeIn,
+            villainAnimation: VillainAnimation.fade,
             child: Villain(
                 villainAnimation: VillainAnimation.fromLeftToRight
                   ..to = Duration(milliseconds: 600),
