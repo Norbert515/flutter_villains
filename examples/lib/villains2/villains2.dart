@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_villains/villains2.dart';
+import 'package:flutter_villains/villains/villains2.dart';
 
 void main() => runApp(MyApp());
 
@@ -53,7 +53,7 @@ class MyHomePage2 extends StatefulWidget {
 }
 
 class _MyHomePageState2 extends State<MyHomePage2> {
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
