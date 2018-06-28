@@ -1,6 +1,7 @@
 import 'package:examples/villains1/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_villains/villains.dart';
+import 'package:flutter_villains/villains/utils.dart';
+import 'package:flutter_villains/villains/villains.dart';
 
 
 class PictureGridPage extends StatefulWidget {
@@ -48,12 +49,17 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new PreferredSizeProxyVillain(
-        villainBuilder: (child)=> new SlideVillain(slideDirection: SlideDirection.topToBottom, child:  child,),
-        child: new AppBar(
+      appBar: PreferredSizeProxy(
+        preferredSizeWidget: new AppBar(
           title: new Text("Villains"),
           backgroundColor: Colors.green,
         ),
+        widgetWithChildBuilder: (context, child) {
+          return Villain(
+            villainAnimation: VillainAnimation.fromTopToBottom,
+            child: child,
+          );
+        },
       ),
       body: new Center(
         child: new Column(
@@ -63,8 +69,8 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
               tag: widget.url,
               child: new Image.network(widget.url),
             ),
-            new SlideVillain(
-              slideDirection: SlideDirection.bottomToTop,
+            new Villain(
+              villainAnimation: VillainAnimation.fromBottomToTop,
               child: new Padding(
                 padding: const EdgeInsets.only(top: 32.0),
                 child: new Text("This is a beautiful image", style: Theme.of(context).textTheme.display1,),
@@ -73,9 +79,9 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
           ],
         ),
       ),
-      floatingActionButton: new ScaleVillain(
+      floatingActionButton: new Villain(
           child: new FloatingActionButton(onPressed: (){}, child: new Icon(Icons.add),),
-        fromFactor: 0.8,
+        villainAnimation: VillainAnimation.scaleAnimation(0.7, 1.0),
         animateExit: false,
       ),
     );

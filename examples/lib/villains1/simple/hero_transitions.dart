@@ -1,6 +1,6 @@
 import 'package:examples/villains1/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_villains/villains.dart';
+import 'package:flutter_villains/villains/villains.dart';
 
 
 class HeroTransitionPage extends StatefulWidget {
@@ -54,8 +54,8 @@ class _HeroTransitionTargetPageState extends State<HeroTransitionTargetPage> {
           ),
         ),
       ),
-      bottomNavigationBar: new SlideVillain(
-        slideDirection: SlideDirection.bottomToTop,
+      bottomNavigationBar: new Villain(
+        villainAnimation: VillainAnimation.fromBottomToTop,
         child: new BottomNavigationBar(
           items: [
             new BottomNavigationBarItem(

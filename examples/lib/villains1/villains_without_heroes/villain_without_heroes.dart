@@ -1,6 +1,6 @@
 import 'package:examples/villains1/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_villains/villains.dart';
+import 'package:flutter_villains/villains/villains.dart';
 
 
 class VillainWithoutHeroes extends StatefulWidget {
@@ -29,8 +29,8 @@ class VillainWithHeroTarget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      bottomNavigationBar: new SlideVillain(
-        slideDirection: SlideDirection.bottomToTop,
+      bottomNavigationBar: new Villain(
+        villainAnimation: VillainAnimation.fromBottomToTop,
         child: new BottomNavigationBar(
             items: [
               new BottomNavigationBarItem(
@@ -47,10 +47,9 @@ class VillainWithHeroTarget extends StatelessWidget {
       body: new Container(
         child: new Column(
           children: <Widget>[
-            new SlideVillain(
+            new Villain(
                 child: new Image.network(Images.imageUrls[10]),
-              slideDirection: SlideDirection.topToBottom,
-              relativeDistance: 0.05,
+              villainAnimation: VillainAnimation.translateAnimation(Offset(0.0,-0.5), Offset.zero),
             ),
             new Text("This is a great image", style: Theme.of(context).textTheme.display1,)
           ],

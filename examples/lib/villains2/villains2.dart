@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_villains/villains/villains2.dart';
+import 'package:flutter_villains/villains/villains.dart';
 
 void main() => runApp(MyApp());
 

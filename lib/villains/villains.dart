@@ -5,8 +5,15 @@ import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 
 class VillainController {
-  static Future playAllVillains(BuildContext context) {
-    List<_VillainState> villains = VillainController._allVillainssFor(context);
+  static Future playAllVillains(BuildContext context, {bool entrance = true}) {
+    List<_VillainState> villains = VillainController._allVillainssFor(context)
+      ..removeWhere((villain) {
+        if (entrance) {
+          return !villain.widget.animateEntrance;
+        } else {
+          return !villain.widget.animateExit;
+        }
+      });
 
     // Controller for the new page animation because it can be longer then the actual page transition
 
@@ -16,7 +23,7 @@ class VillainController {
 
     for (_VillainState villain in villains) {
       builder.addAnimatable(
-          anim: Tween<double>(begin: 0.0, end: 1.0), from: villain.widget.villainAnimation.from, to: villain.widget.villainAnimation.to, tag: villain.hashCode);
+          anim: Tween<double>(begin: 0.0, end: 1.0), from: villain.widget.villainAnimation.from, to: villain.widget.villainAnimation.to, tag: villain.hashCode, curve: villain.widget.villainAnimation.curve);
     }
 
     SequenceAnimation sequenceAnimation = builder.animate(controller);
@@ -55,7 +62,10 @@ class Villain extends StatefulWidget {
 
   final Widget child;
 
-  const Villain({Key key, this.villainAnimation, this.child}) : super(key: key);
+  final bool animateEntrance;
+  final bool animateExit;
+
+  const Villain({Key key, @required this.villainAnimation, this.child, this.animateEntrance = true, this.animateExit = true}) : super(key: key);
 
   @override
   _VillainState createState() {
@@ -117,8 +127,11 @@ class VillainAnimation {
   Duration from;
   Duration to;
 
+  Curve curve;
+
   /// [form] defaults to 0 and [to] defaults to the [MaterialPageRoute] transition duration which is 300 ms
-  VillainAnimation({this.animatedWidgetBuilder, this.animatable, this.from = Duration.zero, this.to = const Duration(milliseconds: 300)});
+  VillainAnimation(
+      {this.animatedWidgetBuilder, this.animatable, this.from = Duration.zero, this.to = const Duration(milliseconds: 300), this.curve = Curves.linear});
 
   static VillainAnimation fromLeftToRight = VillainAnimation(
       animatable: Tween<Offset>(begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0)),
@@ -183,6 +196,28 @@ class VillainAnimation {
         );
       });
 
+  static VillainAnimation scaleAnimation(double from, double to) {
+    return VillainAnimation(
+        animatable: Tween<double>(begin: from, end: to),
+        animatedWidgetBuilder: (animation, child) {
+          return ScaleTransition(
+            scale: animation,
+            child: child,
+          );
+        });
+  }
+
+  static VillainAnimation translateAnimation(Offset from, Offset to) {
+    return VillainAnimation(
+        animatable: Tween<Offset>(begin: from, end: to),
+        animatedWidgetBuilder: (animation, child) {
+          return SlideTransition(
+            position: animation,
+            child: child,
+          );
+        });
+  }
+
 //TODO custom villain FAB reveal
 
 //TODO Tabcontrooler like villains, VillainController Widget, DefaultVillain InheritedWidget
@@ -241,16 +276,18 @@ class VillainTransitionObserver extends NavigatorObserver {
       return;
     }
 
-    VillainController.playAllVillains(to.subtreeContext);
+    VillainController.playAllVillains(to.subtreeContext, entrance: true);
 
     List<_VillainState> villains2 = VillainController._allVillainssFor(from.subtreeContext);
 
-    //TODO handle timing when animation out
 
+    //TODO add curve to move out animation
     //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
     //would be useless
     for (_VillainState villain in villains2) {
-      villain.startAnimation(from.animation);
+      if (villain.widget.animateExit) {
+        villain.startAnimation(from.animation);
+      }
     }
   }
 }
