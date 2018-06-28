@@ -7,7 +7,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorObservers: [VillainTransitionObserver()],
+      //TODO add back observer
+    //  navigatorObservers: [VillainTransitionObserver()],
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -52,28 +53,48 @@ class MyHomePage2 extends StatefulWidget {
   _MyHomePageState2 createState() => _MyHomePageState2();
 }
 
-class _MyHomePageState2 extends State<MyHomePage2> {
+class _MyHomePageState2 extends State<MyHomePage2> with SingleTickerProviderStateMixin{
+
+
+  VillainController controller;
+
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new VillainController(sync: this);
+
+    controller.controller.duration = Duration(seconds: 1);
+
+    controller.forward();
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Page 2"),
-      ),
-      body: Column(
-        children: <Widget>[
-          Text("from the side"),
-          Villain(
-            villainAnimation: VillainAnimation.fadeIn,
-            child: Villain(
-                villainAnimation: VillainAnimation.fromLeftToRight
-                  ..to = Duration(milliseconds: 600),
-                child: Text("from below")),
-          ),
-          RaisedButton(onPressed: (){
-            VillainController.playAllVillains(context);
-          }, child: Text("Play villain animations"),),
-        ],
+    return DefaultVillainController(
+      controller: controller,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Page 2"),
+        ),
+        body: Column(
+          children: <Widget>[
+            Text("from the side"),
+            Villain(
+              villainAnimation: VillainAnimation.fadeIn,
+              child: Villain(
+                  villainAnimation: VillainAnimation.fromLeftToRight
+                    ..to = Duration(milliseconds: 600),
+                  child: Text("from below")),
+            ),
+            RaisedButton(onPressed: (){
+           //   VillainController.playAllVillains(context);
+            }, child: Text("Play villain animations"),),
+          ],
+        ),
       ),
     );
   }
+
 }
