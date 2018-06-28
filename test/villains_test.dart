@@ -91,7 +91,7 @@ void main() {
       child: Align(
         alignment: Alignment.topCenter,
         child: Villain(
-          villainAnimation: VillainAnimation.fromBottomToTop..to = Duration(milliseconds: 750),
+          villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
           child: Container(
             width: 200.0,
             height: 200.0,
@@ -189,7 +189,7 @@ void main() {
       child: Align(
         alignment: Alignment.topCenter,
         child: Villain(
-          villainAnimation: VillainAnimation.fromBottomToTop
+          villainAnimation: VillainAnimation.fromBottomToTopOld
             ..from = Duration(seconds: 1)
             ..to = Duration(seconds: 2),
           child: Container(
@@ -246,6 +246,67 @@ void main() {
             height: 200.0,
             color: Colors.red,
             key: container,
+          ),
+        ),
+      ),
+    );
+
+    Key openKey = Key('open');
+
+    await tester.pumpWidget(TestWidget(
+      pageToOpen: page,
+      buttonKey: openKey,
+    ));
+
+    await tester.tap(find.byKey(openKey));
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.byKey(container), findsOneWidget);
+
+    final double initialY = tester.getTopLeft(find.byKey(container)).dy;
+    final double initialX = tester.getTopLeft(find.byKey(container)).dx;
+
+    expect(initialY, 0.0);
+    expect(initialX, 0.0);
+
+    await tester.pump(Duration(milliseconds: 250));
+
+    final double after250Y = tester.getTopLeft(find.byKey(container)).dy;
+    final double after250X = tester.getTopLeft(find.byKey(container)).dx;
+
+    expect(after250Y, greaterThan(50.0));
+    expect(after250Y, lessThan(75.0));
+
+    expect(after250X, greaterThan(50.0));
+    expect(after250X, lessThan(75.0));
+
+    await tester.pumpAndSettle();
+
+    final double yAtEnd = tester.getTopLeft(find.byKey(container)).dy;
+    final double xAtEnd = tester.getTopLeft(find.byKey(container)).dx;
+
+    expect(yAtEnd, 200.0);
+    expect(xAtEnd, 200.0);
+  });
+
+
+  testWidgets('Villain wrapped in villain animation x-y movement', (WidgetTester tester) async {
+    Key container = Key('container');
+
+    Widget page = Material(
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Villain(
+          villainAnimation: VillainAnimation.translateAnimation(Offset(0.0, 0.0), Offset(0.0, 1.0))..to = Duration(milliseconds: 750),
+          child: Villain(
+            villainAnimation: VillainAnimation.translateAnimation(Offset(0.0, 0.0), Offset(1.0, 0.0))..to = Duration(milliseconds: 750),
+            child: Container(
+              width: 200.0,
+              height: 200.0,
+              color: Colors.red,
+              key: container,
+            ),
           ),
         ),
       ),

@@ -185,7 +185,7 @@ class VillainAnimation {
         );
       });
 
-  static VillainAnimation fromBottomToTop = VillainAnimation(
+  static VillainAnimation fromBottomToTopOld = VillainAnimation(
       animatable: Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0)),
       animatedWidgetBuilder: (animation, child) {
         return SlideTransition(
@@ -194,7 +194,7 @@ class VillainAnimation {
         );
       });
 
-  static VillainAnimation fromBottomToTop2(double relativeOffset) {
+  static VillainAnimation fromBottomToTop(double relativeOffset) {
     return VillainAnimation(
         animatable: Tween<Offset>(begin: Offset(0.0, relativeOffset), end: Offset(0.0, 0.0)),
         animatedWidgetBuilder: (animation, child) {

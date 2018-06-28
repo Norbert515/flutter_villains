@@ -70,7 +70,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
               child: new Image.network(widget.url),
             ),
             new Villain(
-              villainAnimation: VillainAnimation.fromBottomToTop,
+              villainAnimation: VillainAnimation.fromBottomToTopOld,
               child: new Padding(
                 padding: const EdgeInsets.only(top: 32.0),
                 child: new Text("This is a beautiful image", style: Theme.of(context).textTheme.display1,),

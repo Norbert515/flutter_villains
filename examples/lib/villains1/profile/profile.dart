@@ -66,7 +66,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
                         height: 16.0,
                       ),
                       Villain(
-                        villainAnimation: VillainAnimation.fromBottomToTop2(0.4)
+                        villainAnimation: VillainAnimation.fromBottomToTop(0.4)
                         ..to = Duration(milliseconds: 150),
                         animateExit: false,
                         secondaryVillainAnimation: VillainAnimation.fade,
@@ -76,7 +76,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
                         ),
                       ),
                       Villain(
-                        villainAnimation: VillainAnimation.fromBottomToTop2(0.4)
+                        villainAnimation: VillainAnimation.fromBottomToTop(0.4)
                           ..to = Duration(milliseconds: 150),
                         animateExit: false,
                         secondaryVillainAnimation: VillainAnimation.fade,
@@ -88,7 +88,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
                       Row(
                         children: <Widget>[
                           Villain(
-                            villainAnimation: VillainAnimation.fromBottomToTop2(0.8)
+                            villainAnimation: VillainAnimation.fromBottomToTop(0.8)
                             ..curve = Curves.fastOutSlowIn
                             ..from = Duration(milliseconds: 100)
                             ..to = Duration(milliseconds: 250),
@@ -102,7 +102,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
                             ),
                           ),
                           Villain(
-                            villainAnimation: VillainAnimation.fromBottomToTop2(0.8)
+                            villainAnimation: VillainAnimation.fromBottomToTop(0.8)
                               ..curve = Curves.fastOutSlowIn
                               ..from = Duration(milliseconds: 150)
                               ..to = Duration(milliseconds: 300),
@@ -119,7 +119,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
                             ),
                           ),
                           Villain(
-                            villainAnimation: VillainAnimation.fromBottomToTop2(0.8)
+                            villainAnimation: VillainAnimation.fromBottomToTop(0.8)
                               ..curve = Curves.fastOutSlowIn
                               ..from = Duration(milliseconds: 200)
                               ..to = Duration(milliseconds: 350),
@@ -143,7 +143,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
               height: 64.0,
             ),
             Villain(
-              villainAnimation: VillainAnimation.fromBottomToTop2(0.05)
+              villainAnimation: VillainAnimation.fromBottomToTop(0.05)
               ..from = Duration(milliseconds: 300)
               ..to = Duration(milliseconds: 400),
               secondaryVillainAnimation: VillainAnimation.fade,

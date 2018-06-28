@@ -30,7 +30,7 @@ class VillainWithHeroTarget extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       bottomNavigationBar: new Villain(
-        villainAnimation: VillainAnimation.fromBottomToTop,
+        villainAnimation: VillainAnimation.fromBottomToTopOld,
         child: new BottomNavigationBar(
             items: [
               new BottomNavigationBarItem(
