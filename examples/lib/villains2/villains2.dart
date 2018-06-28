@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //TODO add back observer
-    //  navigatorObservers: [VillainTransitionObserver()],
+      //  navigatorObservers: [VillainTransitionObserver()],
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -89,7 +89,7 @@ class _MyHomePageState2 extends State<MyHomePage2> with SingleTickerProviderStat
                   child: Text("from below")),
             ),
             RaisedButton(onPressed: (){
-           //   VillainController.playAllVillains(context);
+              //   VillainController.playAllVillains(context);
             }, child: Text("Play villain animations"),),
           ],
         ),
