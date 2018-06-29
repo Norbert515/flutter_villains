@@ -3,7 +3,6 @@
 
 ### Villains for flutter. What are heroes without villains?
 
-TK insert animated mock graphic
 ![profile-page](media/profile.gif "profile-page")
 
 
