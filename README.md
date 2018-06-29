@@ -8,7 +8,7 @@
 _(Profile image from: https://unsplash.com/photos/pAs4IM6OGWI)_
 
 
-## What are villains
+## What are villains?
 You keep seeing beautiful page transitions but you think to yourself those are too much work?
 
 Fear no more, villains are here to save you!
