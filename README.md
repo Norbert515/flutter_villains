@@ -7,7 +7,7 @@
 
 
 
-## Assembling Screens with style
+## Assembling pages with style
 You keep seeing beautiful page transitions but you think to yourself those are too much work?
 Fear no mear, villains are here to save you!
 
