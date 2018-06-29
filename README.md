@@ -77,9 +77,6 @@ You can play up to two animations per `Villain`. If you want more you can always
 ```
 
 
-Villains work best with routes with no moving route transitions (like MaterialPageRoute or CupertinoPageRoute) because too many animations distract the user. Though they can also work with those when animation in the same direction:
-Tk insert columns example
-
 
 
 
