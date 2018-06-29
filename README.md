@@ -8,9 +8,13 @@
 _(Profile image from: https://unsplash.com/photos/pAs4IM6OGWI)_
 
 
-## Assembling pages with style
+## What are villains
 You keep seeing beautiful page transitions but you think to yourself those are too much work?
-Fear no mear, villains are here to save you!
+
+Fear no more, villains are here to save you!
+
+### Assembling pages with style
+Define animations to play when a page is opened.
 
 ### Easy to use 
 ```dart
