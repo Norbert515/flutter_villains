@@ -1,16 +1,20 @@
 ![](https://github.com/Norbert515/flutter_villains/blob/master/assets/icons8-joker-suicide-squad-96.png)
 # flutter_villains
 
-### Villains for flutter. What are heroes without villains?
+### What are heroes without villains?
 
-TK insert animated mock graphic
+![profile-page](media/profile.gif "profile-page")
+
+_(Profile image from: https://unsplash.com/photos/pAs4IM6OGWI)_
 
 
-
-
-## Assembling Screens with style
+## What are villains?
 You keep seeing beautiful page transitions but you think to yourself those are too much work?
-Fear no mear, villains are here to save you!
+
+Fear no more, villains are here to save you!
+
+### Assembling pages with style
+Define animations to play when a page is opened.
 
 ### Easy to use 
 ```dart
