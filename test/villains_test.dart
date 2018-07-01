@@ -239,55 +239,6 @@ void main() {
     expect(yAtEnd, 0.0);
   });
 
-  testWidgets('Villain animation starting later', (WidgetTester tester) async {
-    Key container = Key('container');
-
-    Widget page = Material(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Villain(
-          villainAnimation: VillainAnimation.fromBottomToTopOld
-            ..from = Duration(seconds: 1)
-            ..to = Duration(seconds: 2),
-          child: Container(
-            width: 200.0,
-            height: 200.0,
-            color: Colors.red,
-            key: container,
-          ),
-        ),
-      ),
-    );
-
-    Key openKey = Key('open');
-
-    await tester.pumpWidget(TestWidget(
-      pageToOpen: page,
-      buttonKey: openKey,
-    ));
-
-    await tester.tap(find.byKey(openKey));
-    await tester.pump();
-    await tester.pump();
-
-    expect(find.byKey(container), findsOneWidget);
-
-    final double initialY = tester.getTopLeft(find.byKey(container)).dy;
-
-    expect(initialY, 200.0);
-
-    await tester.pump(Duration(milliseconds: 999));
-
-    final double beforeAnimation = tester.getTopLeft(find.byKey(container)).dy;
-
-    expect(beforeAnimation, 200.0);
-
-    await tester.pumpAndSettle();
-
-    final double yAtEnd = tester.getTopLeft(find.byKey(container)).dy;
-
-    expect(yAtEnd, 0.0);
-  });
 
   testWidgets('Villain secondary animation x-y movement', (WidgetTester tester) async {
     Key container = Key('container');
@@ -408,7 +359,7 @@ void main() {
     expect(xAtEnd, 200.0);
   });
 
-/*
+
   testWidgets('Villain mutedTicker', (WidgetTester tester) async {
     Key container = Key('container');
 
@@ -454,8 +405,60 @@ void main() {
     final double yAtEnd = tester.getTopLeft(find.byKey(container)).dy;
 
     expect(yAtEnd, 200.0);
-  });*/
+  });
 
+
+  testWidgets('Villain animation starting later', (WidgetTester tester) async {
+    Key container = Key('container');
+
+    Widget page = Material(
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Villain(
+          villainAnimation: VillainAnimation.fromBottomToTopOld
+            ..from = Duration(seconds: 1)
+            ..to = Duration(seconds: 2),
+          child: Container(
+            width: 200.0,
+            height: 200.0,
+            color: Colors.red,
+            key: container,
+          ),
+        ),
+      ),
+    );
+
+    Key openKey = Key('open');
+
+    await tester.pumpWidget(TestWidget(
+      pageToOpen: page,
+      buttonKey: openKey,
+    ));
+
+    await tester.tap(find.byKey(openKey));
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.byKey(container), findsOneWidget);
+
+    final double initialY = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(initialY, 200.0);
+
+    await tester.pump(Duration(milliseconds: 999));
+
+    final double beforeAnimation = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(beforeAnimation, 200.0);
+
+    await tester.pumpAndSettle();
+
+    final double yAtEnd = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(yAtEnd, 0.0);
+
+
+  });
 
   testWidgets('Villain multiple playing/not playing', (WidgetTester tester) async {
     Key container = Key('container');
@@ -531,6 +534,7 @@ void main() {
   testWidgets('Villain exit playing', (WidgetTester tester) async {
     Key container = Key('container');
 
+
     Widget page = Material(
       child: Align(
         alignment: Alignment.topCenter,
@@ -593,4 +597,5 @@ void main() {
     await tester.pumpAndSettle();
 
   });
+
 }

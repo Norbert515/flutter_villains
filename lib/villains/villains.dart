@@ -144,22 +144,55 @@ class _VillainState extends State<Villain> {
 
 typedef Widget AnimatedWidgetBuilder(Animation animation, Widget child);
 
+const Duration _kMaterialRouteTransitionLength = const Duration(milliseconds: 300);
+
 class VillainAnimation {
   final AnimatedWidgetBuilder animatedWidgetBuilder;
 
   final Animatable animatable;
 
-  Duration from;
-  Duration to;
+  final Duration from;
+  final Duration to;
 
-  Curve curve;
+  final Curve curve;
 
   /// [form] defaults to 0 and [to] defaults to the [MaterialPageRoute] transition duration which is 300 ms
   VillainAnimation(
-      {this.animatedWidgetBuilder, this.animatable, this.from = Duration.zero, this.to = const Duration(milliseconds: 300), this.curve = Curves.linear});
+      {this.animatedWidgetBuilder, this.animatable, this.from = Duration.zero, this.to = _kMaterialRouteTransitionLength, this.curve = Curves.linear});
 
-  static VillainAnimation fromLeftToRight = VillainAnimation(
-      animatable: Tween<Offset>(begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0)),
+  static VillainAnimation fromLeft(
+          {double offset = 1.0, Duration from = Duration.zero, Duration to = _kMaterialRouteTransitionLength, Curve curve = Curves.linear}) =>
+      VillainAnimation(
+          curve: curve,
+          from: from,
+          to: to,
+          animatable: Tween<Offset>(begin: Offset(-offset, 0.0), end: Offset(0.0, 0.0)),
+          animatedWidgetBuilder: (animation, child) {
+            return SlideTransition(
+              position: animation,
+              child: child,
+            );
+          });
+
+  static VillainAnimation fromRight(
+          {double offset = 1.0, Duration from = Duration.zero, Duration to = _kMaterialRouteTransitionLength, Curve curve = Curves.linear}) =>
+      VillainAnimation(
+          curve: curve,
+          from: from,
+          to: to,
+          animatable: Tween<Offset>(begin: Offset(offset, 0.0), end: Offset(0.0, 0.0)),
+          animatedWidgetBuilder: (animation, child) {
+            return SlideTransition(
+              position: animation,
+              child: child,
+            );
+          });
+
+  static VillainAnimation fromTop({double offset = 1.0, Duration from, Duration to, Curve curve}) => VillainAnimation(
+      from: from,
+      to: to,
+      curve: curve,
+      animatable: Tween<Offset>(begin: Offset(0.0, -offset), end: Offset(0.0, 0.0)),
       animatedWidgetBuilder: (animation, child) {
         return SlideTransition(
           position: animation,
@@ -167,34 +200,8 @@ class VillainAnimation {
         );
       });
 
-  static VillainAnimation fromRightToLeft = VillainAnimation(
-      animatable: Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0)),
-      animatedWidgetBuilder: (animation, child) {
-        return SlideTransition(
-          position: animation,
-          child: child,
-        );
-      });
-
-  static VillainAnimation fromTopToBottom = VillainAnimation(
-      animatable: Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0)),
-      animatedWidgetBuilder: (animation, child) {
-        return SlideTransition(
-          position: animation,
-          child: child,
-        );
-      });
-
-  static VillainAnimation fromBottomToTopOld = VillainAnimation(
-      animatable: Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0)),
-      animatedWidgetBuilder: (animation, child) {
-        return SlideTransition(
-          position: animation,
-          child: child,
-        );
-      });
-
-  static VillainAnimation fromBottomToTop(double relativeOffset) {
+  static VillainAnimation fromBottom(
+      {double relativeOffset = 1.0, Duration from = Duration.zero, Duration to = const Duration(milliseconds: 300), Curve curve}) {
     return VillainAnimation(
         animatable: Tween<Offset>(begin: Offset(0.0, relativeOffset), end: Offset(0.0, 0.0)),
         animatedWidgetBuilder: (animation, child) {
@@ -205,8 +212,8 @@ class VillainAnimation {
         });
   }
 
-  static VillainAnimation fade = VillainAnimation(
-      animatable: Tween<double>(begin: 0.0, end: 1.0),
+  static VillainAnimation fade({double from = 0.0, double to = 1.0}) => VillainAnimation(
+      animatable: Tween<double>(begin: from, end: to),
       animatedWidgetBuilder: (animation, child) {
         return FadeTransition(
           opacity: animation,
@@ -214,25 +221,7 @@ class VillainAnimation {
         );
       });
 
-  static VillainAnimation scaleDown = VillainAnimation(
-      animatable: Tween<double>(begin: 2.0, end: 1.0),
-      animatedWidgetBuilder: (animation, child) {
-        return ScaleTransition(
-          scale: animation,
-          child: child,
-        );
-      });
-
-  static VillainAnimation scaleUp = VillainAnimation(
-      animatable: Tween<double>(begin: 0.0, end: 1.0),
-      animatedWidgetBuilder: (animation, child) {
-        return ScaleTransition(
-          scale: animation,
-          child: child,
-        );
-      });
-
-  static VillainAnimation scaleAnimation(double from, double to) {
+  static VillainAnimation scale({double from = 0.5, double to = 1.0}) {
     return VillainAnimation(
         animatable: Tween<double>(begin: from, end: to),
         animatedWidgetBuilder: (animation, child) {

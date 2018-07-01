@@ -52,7 +52,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
                 padding: const EdgeInsets.all(16.0),
                 child: Villain(
                   animateEntrance: false,
-                  villainAnimation: VillainAnimation.fade,
+                  villainAnimation: VillainAnimation.fade(),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -66,18 +66,18 @@ class _ProfilePage2State extends State<ProfilePage2> {
                         height: 16.0,
                       ),
                       Villain(
-                        villainAnimation: VillainAnimation.fromBottomToTop(0.4)..to = Duration(milliseconds: 150),
+                        villainAnimation: VillainAnimation.fromBottom(0.4, to: Duration(milliseconds: 150)),
                         animateExit: false,
-                        secondaryVillainAnimation: VillainAnimation.fade,
+                        secondaryVillainAnimation: VillainAnimation.fade(),
                         child: Text(
                           "This is some great text writtin. This is a short summary, containing useful information. This needs to be a bit longer so I'll jsut keep writing.",
                           style: Theme.of(context).textTheme.body1,
                         ),
                       ),
                       Villain(
-                        villainAnimation: VillainAnimation.fromBottomToTop(0.4)..to = Duration(milliseconds: 150),
+                        villainAnimation: VillainAnimation.fromBottom(0.4),
                         animateExit: false,
-                        secondaryVillainAnimation: VillainAnimation.fade,
+                        secondaryVillainAnimation: VillainAnimation.fade(),
                         child: Divider(
                           color: Colors.black,
                           height: 32.0,
