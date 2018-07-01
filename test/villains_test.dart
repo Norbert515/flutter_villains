@@ -25,12 +25,15 @@ class BlankTransition extends PageRoute {
   Duration get transitionDuration => const Duration(milliseconds: 300);
 }
 
+typedef void BuildContextGetter (BuildContext context);
 class TestWidget extends StatelessWidget {
   final Widget pageToOpen;
 
   final Key buttonKey;
 
-  const TestWidget({Key key, this.pageToOpen, this.buttonKey}) : super(key: key);
+  final BuildContextGetter buildContextGetter;
+
+  const TestWidget({Key key, this.pageToOpen, this.buttonKey, this.buildContextGetter}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,9 @@ class TestWidget extends StatelessWidget {
       home: Material(
         child: Center(child: LayoutBuilder(
           builder: (BuildContext navigatorContext, BoxConstraints constraints) {
+            if(buildContextGetter != null) {
+              buildContextGetter(navigatorContext);
+            }
             return MaterialButton(
               onPressed: () {
                 Navigator.push(navigatorContext, BlankTransition(pageToOpen));
@@ -131,6 +137,7 @@ void main() {
     final double yAtEnd = tester.getTopLeft(find.byKey(container)).dy;
 
     expect(yAtEnd, 0.0);
+
   });
 
   testWidgets('Villain fromBottomToTop no entrance animation', (WidgetTester tester) async {
@@ -448,4 +455,142 @@ void main() {
 
     expect(yAtEnd, 200.0);
   });*/
+
+
+  testWidgets('Villain multiple playing/not playing', (WidgetTester tester) async {
+    Key container = Key('container');
+    Key container2 = Key('container2');
+
+    Widget page = Material(
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Row(
+          children: <Widget>[
+            Villain(
+              villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+              child: Container(
+                width: 50.0,
+                height: 200.0,
+                color: Colors.red,
+                key: container,
+              ),
+            ),
+            Villain(
+              villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+              animateEntrance: false,
+              child: Container(
+                width: 50.0,
+                height: 200.0,
+                color: Colors.yellow,
+                key: container2,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    Key openKey = Key('open');
+
+    await tester.pumpWidget(TestWidget(
+      pageToOpen: page,
+      buttonKey: openKey,
+    ));
+
+    await tester.tap(find.byKey(openKey));
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.byKey(container), findsOneWidget);
+
+    final double initialY = tester.getTopLeft(find.byKey(container)).dy;
+    final double initialY2 = tester.getTopLeft(find.byKey(container2)).dy;
+
+    expect(initialY2, 0.0);
+    expect(initialY, 200.0);
+
+    await tester.pump(Duration(milliseconds: 250));
+
+    final double yAt250 = tester.getTopLeft(find.byKey(container)).dy;
+    final double yAt250Two = tester.getTopLeft(find.byKey(container2)).dy;
+
+    expect(yAt250, greaterThan(125.0));
+    expect(yAt250, lessThan(150.0));
+    expect(yAt250Two, 0.0);
+
+    await tester.pumpAndSettle();
+
+    final double yAtEnd = tester.getTopLeft(find.byKey(container)).dy;
+    final double yAtEnd2 = tester.getTopLeft(find.byKey(container2)).dy;
+
+    expect(yAtEnd, 0.0);
+    expect(yAtEnd2, 0.0);
+  });
+
+
+  testWidgets('Villain exit playing', (WidgetTester tester) async {
+    Key container = Key('container');
+
+    Widget page = Material(
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Villain(
+          villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+          child: Container(
+            width: 200.0,
+            height: 200.0,
+            color: Colors.red,
+            key: container,
+          ),
+        ),
+      ),
+    );
+
+    Key openKey = Key('open');
+
+    BuildContext navigatorContext;
+    await tester.pumpWidget(TestWidget(
+      pageToOpen: page,
+      buttonKey: openKey,
+      buildContextGetter: (context) {
+        navigatorContext = context;
+      },
+    ));
+    await tester.pump();
+
+    expect(navigatorContext, isNotNull);
+
+    await tester.tap(find.byKey(openKey));
+    await tester.pumpAndSettle();
+
+
+
+    Navigator.of(navigatorContext).pop();
+    await tester.pump();
+
+
+
+    expect(find.byKey(container), findsOneWidget);
+
+    final double initialY = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(initialY, 0.0);
+
+    await tester.pump(Duration(milliseconds: 100));
+
+    final double yAt100 = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(yAt100, greaterThan(50.0));
+    expect(yAt100, lessThan(75.0));
+
+    await tester.pump(Duration(milliseconds: 195));
+
+    final double yAtEnd = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(yAtEnd, greaterThan(190.0));
+    expect(yAtEnd, lessThan(201.0));
+
+    await tester.pumpAndSettle();
+
+  });
 }
