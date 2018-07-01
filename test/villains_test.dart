@@ -133,6 +133,56 @@ void main() {
     expect(yAtEnd, 0.0);
   });
 
+  testWidgets('Villain fromBottomToTop no entrance animation', (WidgetTester tester) async {
+    Key container = Key('container');
+
+    Widget page = Material(
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Villain(
+          animateEntrance: false,
+          villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+          child: Container(
+            width: 200.0,
+            height: 200.0,
+            color: Colors.red,
+            key: container,
+          ),
+        ),
+      ),
+    );
+
+    Key openKey = Key('open');
+
+    await tester.pumpWidget(TestWidget(
+      pageToOpen: page,
+      buttonKey: openKey,
+    ));
+
+    await tester.tap(find.byKey(openKey));
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.byKey(container), findsOneWidget);
+
+    final double initialY = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(initialY, 0.0);
+
+    await tester.pump(Duration(milliseconds: 250));
+
+    final double yAt250 = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(yAt250, 0.0);
+
+
+    await tester.pumpAndSettle();
+
+    final double yAtEnd = tester.getTopLeft(find.byKey(container)).dy;
+
+    expect(yAtEnd, 0.0);
+  });
+
   testWidgets('Villain translateAnimation test', (WidgetTester tester) async {
     Key container = Key('container');
 
