@@ -1,6 +1,6 @@
-import 'package:examples/villains1/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_villains/villains/villains.dart';
+import '../utils.dart';
 
 // image from https://unsplash.com/photos/pAs4IM6OGWI
 class ProfilePage extends StatefulWidget {

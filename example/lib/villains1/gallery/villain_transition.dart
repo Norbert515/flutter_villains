@@ -1,7 +1,8 @@
-import 'package:examples/villains1/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_villains/villains/utils.dart';
 import 'package:flutter_villains/villains/villains.dart';
+
+import '../utils.dart';
 
 
 class PictureGridPage extends StatefulWidget {
