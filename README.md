@@ -80,7 +80,23 @@ You can play up to two animations per `Villain`. If you want more you can always
     ),
 ```
 
+### Extras
+Define whether the villain should play on entrance/ exit.
+```dart
+    animateEntrance: true,
+    animateExit: true,
+```
+When using the `VillainController` manually, it checks for the bool you give it. 
+```dart
+  static Future playAllVillains(BuildContext context, {bool entrance = true})
+```
 
+Villains entering the page are decoupled from the page transition, meaning they can be as long as they 
+want. On the other hand, if a villain leaves the page, the animation is driven by the page transition.
+This means:
+ - the exit animation is always as long a the exit page transition
+ - Setting the duration doesn't change anything
+ 
 
 
 
