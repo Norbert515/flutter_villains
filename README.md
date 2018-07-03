@@ -18,17 +18,15 @@ Define animations to play when a page is opened.
 
 ### Easy to use 
 ```dart
-    Villain(
-      villainAnimation: VillainAnimation.fromBottomToTop(0.4)
-        ..to = Duration(milliseconds: 150)
-        ..curve = Curves.ease,
-      animateExit: false,
-      secondaryVillainAnimation: VillainAnimation.fade,
-      child: Divider(
-        color: Colors.black,
-        height: 32.0,
+      Villain(
+        villainAnimation: VillainAnimation.fromBottom(relativeOffset: 0.4),
+        animateExit: false,
+        secondaryVillainAnimation: VillainAnimation.fade(),
+        child: Divider(
+          color: Colors.black,
+          height: 32.0,
+        ),
       ),
-    ),
 ```
 That's it. No `TickerProvider`s, no `AnimationController`s, no boilerplate, no worries.
 Remember the StaggeredAnimation tutorial? Because this is using [SequenceAnimation](https://github.com/Norbert515/flutter_sequence_animation) internally there is no need to specify durations as portions of a time-frame. It just works. 
@@ -37,7 +35,7 @@ Remember the StaggeredAnimation tutorial? Because this is using [SequenceAnimati
 The animation you'd like to use is not premade? Make it yourself with a few lines of code!
 
 ```dart
-  static VillainAnimation fade = VillainAnimation(
+  VillainAnimation fade = VillainAnimation(
       animatable: Tween<double>(begin: 0.0, end: 1.0),
       animatedWidgetBuilder: (animation, child) {
         return FadeTransition(
@@ -69,8 +67,7 @@ There are two way of playing your villains.
 You can play up to two animations per `Villain`. If you want more you can always wrap Villains inside each other for _infinite_ animations!
 ```dart
     Villain(
-      villainAnimation: VillainAnimation.fromBottomToTop(0.4)
-      ..to = Duration(milliseconds: 150),
+      villainAnimation: VillainAnimation.fromBottomToTop(0.4, to: Duration(milliseconds: 150)),
       animateExit: false,
       secondaryVillainAnimation: VillainAnimation.fade,
       child: Text(
