@@ -57,7 +57,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
         ),
         widgetWithChildBuilder: (context, child) {
           return Villain(
-            villainAnimation: VillainAnimation.fromTopToBottom,
+            villainAnimation: VillainAnimation.fromTop(),
             child: child,
           );
         },
@@ -71,7 +71,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
               child: new Image.network(widget.url),
             ),
             new Villain(
-              villainAnimation: VillainAnimation.fromBottomToTopOld,
+              villainAnimation: VillainAnimation.fromBottom(),
               child: new Padding(
                 padding: const EdgeInsets.only(top: 32.0),
                 child: new Text("This is a beautiful image", style: Theme.of(context).textTheme.display1,),
@@ -82,7 +82,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
       ),
       floatingActionButton: new Villain(
           child: new FloatingActionButton(onPressed: (){}, child: new Icon(Icons.add),),
-        villainAnimation: VillainAnimation.scaleAnimation(0.7, 1.0),
+        villainAnimation: VillainAnimation.scale(fromScale: 0.7),
         animateExit: false,
       ),
     );

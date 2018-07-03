@@ -97,7 +97,7 @@ void main() {
       child: Align(
         alignment: Alignment.topCenter,
         child: Villain(
-          villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+          villainAnimation: VillainAnimation.fromBottom(to: Duration(milliseconds: 750)),
           child: Container(
             width: 200.0,
             height: 200.0,
@@ -148,7 +148,7 @@ void main() {
         alignment: Alignment.topCenter,
         child: Villain(
           animateEntrance: false,
-          villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+          villainAnimation: VillainAnimation.fromBottom(to: Duration(milliseconds: 750)),
           child: Container(
             width: 200.0,
             height: 200.0,
@@ -197,7 +197,7 @@ void main() {
       child: Align(
         alignment: Alignment.topCenter,
         child: Villain(
-          villainAnimation: VillainAnimation.translateAnimation(Offset(0.0, 1.0), Offset(0.0, 0.0))..to = Duration(milliseconds: 750),
+          villainAnimation: VillainAnimation.translate(fromOffset: Offset(0.0, 1.0), toOffset: Offset(0.0, 0.0), to: Duration(milliseconds: 750)),
           child: Container(
             width: 200.0,
             height: 200.0,
@@ -247,8 +247,8 @@ void main() {
       child: Align(
         alignment: Alignment.topLeft,
         child: Villain(
-          villainAnimation: VillainAnimation.translateAnimation(Offset(0.0, 0.0), Offset(1.0, 0.0))..to = Duration(milliseconds: 750),
-          secondaryVillainAnimation: VillainAnimation.translateAnimation(Offset(0.0, 0.0), Offset(0.0, 1.0))..to = Duration(milliseconds: 750),
+          villainAnimation: VillainAnimation.translate(fromOffset: Offset(0.0, 0.0), toOffset: Offset(1.0, 0.0), to: Duration(milliseconds: 750)),
+          secondaryVillainAnimation: VillainAnimation.translate(fromOffset: Offset(0.0, 0.0), toOffset: Offset(0.0, 1.0), to: Duration(milliseconds: 750)),
           child: Container(
             width: 200.0,
             height: 200.0,
@@ -306,9 +306,9 @@ void main() {
       child: Align(
         alignment: Alignment.topLeft,
         child: Villain(
-          villainAnimation: VillainAnimation.translateAnimation(Offset(0.0, 0.0), Offset(0.0, 1.0))..to = Duration(milliseconds: 750),
+          villainAnimation: VillainAnimation.translate(fromOffset: Offset(0.0, 0.0), toOffset: Offset(0.0, 1.0), to: Duration(milliseconds: 750)),
           child: Villain(
-            villainAnimation: VillainAnimation.translateAnimation(Offset(0.0, 0.0), Offset(1.0, 0.0))..to = Duration(milliseconds: 750),
+            villainAnimation: VillainAnimation.translate(fromOffset: Offset(0.0, 0.0), toOffset: Offset(1.0, 0.0), to: Duration(milliseconds: 750)),
             child: Container(
               width: 200.0,
               height: 200.0,
@@ -367,7 +367,7 @@ void main() {
       child: Align(
         alignment: Alignment.topCenter,
         child: Villain(
-          villainAnimation: VillainAnimation.translateAnimation(Offset(0.0, 1.0), Offset(0.0, 0.0))..to = Duration(milliseconds: 750),
+          villainAnimation: VillainAnimation.translate(fromOffset: Offset(0.0, 1.0),toOffset:  Offset(0.0, 0.0), to: Duration(milliseconds: 750)),
           child: Container(
             width: 200.0,
             height: 200.0,
@@ -415,9 +415,7 @@ void main() {
       child: Align(
         alignment: Alignment.topCenter,
         child: Villain(
-          villainAnimation: VillainAnimation.fromBottomToTopOld
-            ..from = Duration(seconds: 1)
-            ..to = Duration(seconds: 2),
+          villainAnimation: VillainAnimation.fromBottom(from: Duration(seconds: 1), to: Duration(seconds: 2)),
           child: Container(
             width: 200.0,
             height: 200.0,
@@ -470,7 +468,7 @@ void main() {
         child: Row(
           children: <Widget>[
             Villain(
-              villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+              villainAnimation: VillainAnimation.fromBottom(to: Duration(milliseconds: 750)),
               child: Container(
                 width: 50.0,
                 height: 200.0,
@@ -479,7 +477,7 @@ void main() {
               ),
             ),
             Villain(
-              villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+              villainAnimation: VillainAnimation.fromBottom(to: Duration(milliseconds: 750)),
               animateEntrance: false,
               child: Container(
                 width: 50.0,
@@ -539,7 +537,7 @@ void main() {
       child: Align(
         alignment: Alignment.topCenter,
         child: Villain(
-          villainAnimation: VillainAnimation.fromBottomToTopOld..to = Duration(milliseconds: 750),
+          villainAnimation: VillainAnimation.fromBottom(to: Duration(milliseconds: 750)),
           child: Container(
             width: 200.0,
             height: 200.0,
