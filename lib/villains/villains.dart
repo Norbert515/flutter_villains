@@ -17,7 +17,6 @@ class VillainController {
 
     // Controller for the new page animation because it can be longer then the actual page transition
 
-    //TODO test tickermode
     AnimationController controller = new AnimationController(vsync: TransitionTickerProvider(TickerMode.of(context)));
 
     SequenceAnimationBuilder builder = new SequenceAnimationBuilder();
