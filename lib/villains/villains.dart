@@ -23,7 +23,7 @@ class VillainController {
 
     for (_VillainState villain in villains) {
       builder.addAnimatable(
-        anim: Tween<double>(begin: 0.0, end: 1.0),
+        animatable: Tween<double>(begin: 0.0, end: 1.0),
         from: villain.widget.villainAnimation.from,
         to: villain.widget.villainAnimation.to,
         tag: villain.hashCode,

@@ -8,7 +8,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_sequence_animation: "^1.0.1"
+  flutter_sequence_animation: "^2.0.0"
 
 
 dev_dependencies:
