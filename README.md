@@ -39,14 +39,23 @@ Remember the StaggeredAnimation tutorial? Because this is using [SequenceAnimati
 The animation you'd like to use is not premade? Make it yourself with a few lines of code!
 
 ```dart
-  VillainAnimation fade = VillainAnimation(
-      animatable: Tween<double>(begin: 0.0, end: 1.0),
-      animatedWidgetBuilder: (animation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      });
+  static VillainAnimation fade(
+          {double fadeFrom = 0.0,
+          double fadeTo = 1.0,
+          Duration from = Duration.zero,
+          Duration to: _kMaterialRouteTransitionLength,
+          Curve curve: Curves.linear}) =>
+      VillainAnimation(
+          from: from,
+          curve: curve,
+          to: to,
+          animatable: Tween<double>(begin: fadeFrom, end: fadeTo),
+          animatedWidgetBuilder: (animation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          });
 ```
 Every `VillainAnimation` needs an `Animatable` (most of the time it's a `Tween`) and an `AnimatedWidget`. Everything else is handled automatically.
 
