@@ -77,7 +77,7 @@ There are two way of playing your villains.
 
 
 ### Secondary Animation
-You can play up to two animations per `Villain`. If you want more you can always wrap Villains inside each other for _infinite_ animations!
+You can play up to two animations per `Villain`. If you want more you can always wrap Villains inside each other for an _infinite_ amount of animations!
 ```dart
     Villain(
       villainAnimation: VillainAnimation.fromBottomToTop(0.4, to: Duration(milliseconds: 150)),
