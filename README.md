@@ -19,7 +19,11 @@ Define animations to play when a page is opened.
 ### Easy to use 
 ```dart
       Villain(
-        villainAnimation: VillainAnimation.fromBottom(relativeOffset: 0.4, from: Duration(milliseconds: 100), to: Duration(seconds: 1),
+        villainAnimation: VillainAnimation.fromBottom(
+          relativeOffset: 0.4,
+          from: Duration(milliseconds: 100),
+          to: Duration(seconds: 1),
+        ),
         animateExit: false,
         secondaryVillainAnimation: VillainAnimation.fade(),
         child: Divider(
