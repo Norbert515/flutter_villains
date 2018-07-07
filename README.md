@@ -120,6 +120,8 @@ In contrast to real world villains, these villains are **very** easy to handle.
 
 
 
+## Controller
+Currenty there are no controllers implemented to play individual villains by themselves. If you'd like to have that implemented I opened an issue discussing it. Check it out!
 
 
 
