@@ -33,7 +33,7 @@ Define animations to play when a page is opened.
       ),
 ```
 That's it. No `TickerProvider`s, no `AnimationController`s, no boilerplate, no worries.
-Remember the StaggeredAnimation tutorial? Because this is using [SequenceAnimation](https://github.com/Norbert515/flutter_sequence_animation) internally there is no need to specify durations as portions of a time-frame. It just works. 
+Remember the StaggeredAnimation tutorial? This is using [SequenceAnimation](https://github.com/Norbert515/flutter_sequence_animation) internally and there is therefore no need to specify durations as portions of a time-frame. It just works. 
 
 ### Flexible 
 The animation you'd like to use is not premade? Make it yourself with a few lines of code!
@@ -64,7 +64,7 @@ Every `VillainAnimation` needs an `Animatable` (most of the time it's a `Tween`)
 
 There are two way of playing your villains.
 
-1) If you want them to automatically play on page transition (you probably want that) then add this to your `MaterialApp`
+1) If you want them to automatically play when a page transition occurs (you probably want that) then add this to your `MaterialApp`
 ```dart
     return new MaterialApp(
       navigatorObservers: [new VillainTransitionObserver()],
@@ -77,7 +77,7 @@ There are two way of playing your villains.
 
 
 ### Secondary Animation
-You can play up to two animations per `Villain`. If you want more you can always wrap Villains inside each other for an _infinite_ amount of animations!
+You can play up to two animations per `Villain`. You can always wrap Villains inside each other for _infinite_ animations!
 ```dart
     Villain(
       villainAnimation: VillainAnimation.fromBottomToTop(0.4, to: Duration(milliseconds: 150)),
