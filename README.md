@@ -124,7 +124,7 @@ In contrast to real world villains, these villains are **very** easy to handle.
 
 
 
-Icon form https://icons8.com/ 
+Icon from https://icons8.com/ 
 
 ## Getting Started
 
