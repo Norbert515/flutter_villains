@@ -13,6 +13,18 @@ You keep seeing beautiful page transitions but you think to yourself those are t
 
 Fear no more, villains are here to save you!
 
+## Installation
+```
+dependencies:
+  flutter_villains:
+    git:
+      url: git://github.com/Norbert515/flutter_villains.git
+```
+Run packages get and **import**:
+```
+import 'package:flutter_villains/villain.dart';
+```
+
 ### Assembling pages with style
 Define animations to play when a page is opened.
 
