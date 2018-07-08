@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: GestureDetector(
             child: Hero(tag: "profile", child: CircleAvatar(backgroundImage: AssetImage("assets/joe-gardner.jpg"))),
             onTap: () {
-              Navigator.of(context).push(BlankTransition(ProfilePage2()));
+              Navigator.of(context).push(BlankRoute(ProfilePage2()));
             },
           ),
         ),

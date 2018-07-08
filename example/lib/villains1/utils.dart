@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 
-class BlankTransition extends PageRoute {
+class BlankRoute extends PageRoute {
 
   final Widget child;
 
-  BlankTransition(this.child);
+  BlankRoute(this.child);
 
   @override
   Color get barrierColor => null;
