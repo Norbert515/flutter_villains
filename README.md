@@ -16,9 +16,7 @@ Fear no more, villains are here to save you!
 ## Installation
 ```
 dependencies:
-  flutter_villains:
-    git:
-      url: git://github.com/Norbert515/flutter_villains.git
+  flutter_villains: "^1.0.0"
 ```
 Run packages get and **import**:
 ```
