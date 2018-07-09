@@ -14,9 +14,9 @@ You keep seeing beautiful page transitions but you think to yourself those are t
 
 Fear no more, villains are here to save you!
 
-When doing animations when a page transition occurs you'd usally define an AnimationController in the initState() and start it there. You'd also have to wrap your widgets in AnimatedWidgets to react to the animation controller. Besides this being a lot of boilerplate code which clogs up you precious widgets animating on exit isn't as trivial.
+When doing animations when a page transition occurs you'd usally define an `AnimationController` in the `initState()` and start it there. You'd also have to wrap your widgets in `AnimatedWidgets` to react to the animation controller. Besides this being a lot of boilerplate code which clogs up you precious widgets animating on exit isn't as trivial.
 
-Using this library you can just wrap your widget you'd like to be animated when a page transition occurs in a Villain and everything is handled automatically.
+Using this library you can just wrap your widget you'd like to be animated when a page transition occurs in a `Villain` and everything is handled automatically.
 
 ## Installation
 ```
