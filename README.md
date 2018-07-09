@@ -50,6 +50,8 @@ Define animations to play when a page is opened.
 That's it. No `TickerProvider`s, no `AnimationController`s, no boilerplate, no worries.
 Remember the StaggeredAnimation tutorial? This is using [SequenceAnimation](https://github.com/Norbert515/flutter_sequence_animation) internally and there is therefore no need to specify durations as portions of a time-frame. It just works. 
 
+With this basic setup the `Divider` fades in and moves up when a page transition occures (don't forget the `VillainTransitionObserver` more on that under *Code*) 
+
 ### Flexible 
 The animation you'd like to use is not premade? Make it yourself with a few lines of code!
 
