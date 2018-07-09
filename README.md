@@ -6,6 +6,7 @@
 ![profile-page](media/profile.gif "profile-page")
 
 _(Profile image from: https://unsplash.com/photos/pAs4IM6OGWI)_
+
 _Check out the [article](https://medium.com/flutter-community/flutter-heroes-and-villains-bringing-balance-to-the-flutterverse-2e900222de41)._
 
 ## What are villains?
