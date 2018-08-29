@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_villains/villains/villains.dart';
+import 'package:flutter_villains/villain.dart';
 import '../utils.dart';
 
 // image from https://unsplash.com/photos/pAs4IM6OGWI

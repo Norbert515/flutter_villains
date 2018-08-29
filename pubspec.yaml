@@ -1,8 +1,13 @@
 name: flutter_villains
-description: Villains for flutter. What are heroes without villains?
-version: 0.0.1
-author:
-homepage:
+description: Villains for flutter. Page transitions with just a few lines of code. What are heroes without villains?
+version: 1.1.1
+author: Norbert Kozsir <kozsir.norbert@gmail.com>
+homepage: https://github.com/Norbert515/flutter_villains
+
+environment:
+  # Works in Dart 1 (starting with 1.20.1), and works in Dart 2.
+  sdk: '>=1.20.1 <3.0.0'
+
 
 dependencies:
   flutter:
