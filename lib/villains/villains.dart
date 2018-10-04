@@ -89,23 +89,11 @@ class Villain extends StatefulWidget {
 class _VillainState extends State<Villain> {
   Animation<double> _controllerAnimation;
 
-  bool _atTheEnd;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.animateEntrance == true) {
-      _atTheEnd = false;
-    } else {
-      _atTheEnd = true;
-    }
-  }
 
   void startAnimation(Animation<double> animation) {
     assert(animation != null);
     _controllerAnimation?.removeStatusListener(_handleStatusChange);
     setState(() {
-      _atTheEnd = false;
       this._controllerAnimation = animation;
     });
     animation.addStatusListener(_handleStatusChange);
@@ -115,11 +103,8 @@ class _VillainState extends State<Villain> {
     if (_controllerAnimation != null) {
       return _controllerAnimation;
     }
-    if (_atTheEnd) {
-      return AlwaysStoppedAnimation<double>(1.0);
-    } else {
-      return AlwaysStoppedAnimation<double>(0.0);
-    }
+    return AlwaysStoppedAnimation<double>(1.0);
+
   }
 
   void _handleStatusChange(AnimationStatus status) {
@@ -127,7 +112,6 @@ class _VillainState extends State<Villain> {
       if (_controllerAnimation != null) {
         _controllerAnimation.removeStatusListener(_handleStatusChange);
         setState(() {
-          _atTheEnd = true;
           _controllerAnimation = null;
         });
       }

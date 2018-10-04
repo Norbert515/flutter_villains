@@ -8,10 +8,6 @@ dependencies:
   flutter_villains:
     path: ../
 
-  flutter_gallery_assets:
-    git:
-      url: https://flutter.googlesource.com/gallery-assets
-      ref: d318485f208376e06d7e330d9f191141d14722b8
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.0

@@ -1,3 +1,4 @@
+import 'package:examples/villains1/list/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_villains/villains/villains.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         'grid': (_) => new PictureGridPage(),
         'profile': (_) => new ProfilePage(),
         'profile_page_2': (_) => new ProfilePage2(),
+        'list': (_) => ListPage(),
 
       },
     );
@@ -60,6 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
             new RaisedButton(
               onPressed: ()=>Navigator.of(context).pushNamed('profile_page_2'),
               child: new Text("profile_page_no_hero"),
+            ),
+            new RaisedButton(
+              onPressed: ()=>Navigator.of(context).pushNamed('list'),
+              child: new Text("list"),
             ),
           ],
         ),
