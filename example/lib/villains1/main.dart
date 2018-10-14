@@ -1,6 +1,5 @@
 import 'package:examples/villains1/list/list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_villains/villains/villains.dart';
 import 'gallery/villain_transition.dart';
 import 'profile/profile.dart';

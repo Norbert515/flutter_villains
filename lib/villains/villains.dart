@@ -5,14 +5,18 @@ import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 
 class VillainController {
-  static Future playAllVillains(BuildContext context, {bool entrance = true}) {
-    List<_VillainState> villains = VillainController._allVillainssFor(context)
+  static Future playAllVillains(BuildContext context, {bool entrance = true, bool didPop}) {
+    List<_VillainState> villains = VillainController._allVillainsFor(context)
       ..removeWhere((villain) {
-        if (entrance) {
-          return !villain.widget.animateEntrance;
+        if(entrance) {
+          if(!villain.widget.animateEntrance) return true;
         } else {
-          return !villain.widget.animateExit;
+          if(!villain.widget.animateExit) return true;
         }
+        if(didPop) {
+          if(!villain.widget.animateReEntrance) return true;
+        }
+        return false;
       });
 
     // Controller for the new page animation because it can be longer then the actual page transition
@@ -43,7 +47,7 @@ class VillainController {
   }
 
   // Returns a map of all of the heroes in context, indexed by hero tag.
-  static List<_VillainState> _allVillainssFor(BuildContext context) {
+  static List<_VillainState> _allVillainsFor(BuildContext context) {
     assert(context != null);
     final List<_VillainState> villains = [];
 
@@ -71,13 +75,16 @@ class Villain extends StatefulWidget {
   final bool animateEntrance;
   final bool animateExit;
 
+  final bool animateReEntrance;
+
   const Villain(
       {Key key,
       @required this.villainAnimation,
       this.secondaryVillainAnimation,
       this.child,
       this.animateEntrance = true,
-      this.animateExit = true})
+      this.animateExit = true,
+      this.animateReEntrance = true})
       : super(key: key);
 
   @override
@@ -346,14 +353,14 @@ class VillainTransitionObserver extends NavigatorObserver {
   void didPush(Route<dynamic> route, Route<dynamic> previousRoute) {
     assert(navigator != null);
     assert(route != null);
-    _prepareVillainTransition(previousRoute, route);
+    _prepareVillainTransition(previousRoute, route, false);
   }
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
     assert(navigator != null);
     assert(route != null);
-    _prepareVillainTransition(route, previousRoute);
+    _prepareVillainTransition(route, previousRoute, true);
   }
 
   @override
@@ -366,7 +373,7 @@ class VillainTransitionObserver extends NavigatorObserver {
     _questsEnabled = true;
   }
 
-  void _prepareVillainTransition(Route<dynamic> fromRoute, Route<dynamic> toRoute) {
+  void _prepareVillainTransition(Route<dynamic> fromRoute, Route<dynamic> toRoute, bool didPop) {
     if (_questsEnabled && toRoute != fromRoute && toRoute is PageRoute<dynamic> && fromRoute is PageRoute<dynamic>) {
       final PageRoute<dynamic> from = fromRoute;
       final PageRoute<dynamic> to = toRoute;
@@ -377,12 +384,12 @@ class VillainTransitionObserver extends NavigatorObserver {
       //   to.offstage = to.animation.value == 0.0;
 
       WidgetsBinding.instance.addPostFrameCallback((Duration value) {
-        _startVillainTransition(from, to);
+        _startVillainTransition(from, to, didPop);
       });
     }
   }
 
-  void _startVillainTransition(PageRoute from, PageRoute to) {
+  void _startVillainTransition(PageRoute from, PageRoute to, bool didPop) {
     // If the navigator or one of the routes subtrees was removed before this
     // end-of-frame callback was called, then don't actually start a transition.
     if (navigator == null || from.subtreeContext == null || to.subtreeContext == null) {
@@ -390,9 +397,9 @@ class VillainTransitionObserver extends NavigatorObserver {
       return;
     }
 
-    VillainController.playAllVillains(to.subtreeContext, entrance: true);
+    VillainController.playAllVillains(to.subtreeContext, entrance: true, didPop: didPop);
 
-    List<_VillainState> villains2 = VillainController._allVillainssFor(from.subtreeContext);
+    List<_VillainState> villains2 = VillainController._allVillainsFor(from.subtreeContext);
 
     //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
     //would be useless

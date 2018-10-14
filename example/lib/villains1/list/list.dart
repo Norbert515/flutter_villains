@@ -15,7 +15,10 @@ class _ListPageState extends State<ListPage> {
       ),
       body: ListView.builder(itemBuilder: (context, index) {
         return Villain(
-          villainAnimation: VillainAnimation.fromLeft(),
+          villainAnimation: VillainAnimation.fromLeft(
+            offset: 1.0 - index/ 40,
+          ),
+          animateExit: false,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
