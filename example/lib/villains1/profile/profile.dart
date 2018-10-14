@@ -70,7 +70,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
                         animateExit: false,
                         secondaryVillainAnimation: VillainAnimation.fade(),
                         child: Text(
-                          "This is some great text writtin. This is a short summary, containing useful information. This needs to be a bit longer so I'll jsut keep writing.",
+                          "This is some great text writtin. This is a short summary, containing useful information. This needs to be a bit longer so I'll just keep writing.",
                           style: Theme
                               .of(context)
                               .textTheme

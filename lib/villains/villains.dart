@@ -363,6 +363,22 @@ class VillainTransitionObserver extends NavigatorObserver {
     _prepareVillainTransition(route, previousRoute, true);
   }
 
+
+  @override
+  void didReplace({Route<dynamic> newRoute, Route<dynamic> oldRoute}) {
+    assert(navigator != null);
+    assert(newRoute != null);
+    _prepareVillainTransition(oldRoute, newRoute, false);
+  }
+
+
+  @override
+  void didRemove(Route<dynamic> route, Route<dynamic> previousRoute) {
+    assert(navigator != null);
+    assert(route != null);
+    _prepareVillainTransition(route, previousRoute, true);
+  }
+
   @override
   void didStartUserGesture() {
     _questsEnabled = false;
@@ -397,15 +413,20 @@ class VillainTransitionObserver extends NavigatorObserver {
       return;
     }
 
-    VillainController.playAllVillains(to.subtreeContext, entrance: true, didPop: didPop);
+    // Can be null because of didReplace and didRemove
+    if(to != null) {
+      VillainController.playAllVillains(to.subtreeContext, entrance: true, didPop: didPop);
+    }
 
-    List<_VillainState> villains2 = VillainController._allVillainsFor(from.subtreeContext);
+    if(to != null) {
+      List<_VillainState> villains2 = VillainController._allVillainsFor(from.subtreeContext);
 
-    //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
-    //would be useless
-    for (_VillainState villain in villains2) {
-      if (villain.widget.animateExit) {
-        villain.startAnimation(from.animation);
+      //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
+      //would be useless
+      for (_VillainState villain in villains2) {
+        if (villain.widget.animateExit) {
+          villain.startAnimation(from.animation);
+        }
       }
     }
   }

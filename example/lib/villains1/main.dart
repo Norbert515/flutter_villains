@@ -66,6 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: ()=>Navigator.of(context).pushNamed('list'),
               child: new Text("list"),
             ),
+            new RaisedButton(
+              onPressed: ()=>Navigator.of(context).pushReplacementNamed('profile_page_2'),
+              child: new Text("replace with profile_page_no_hero"),
+            ),
           ],
         ),
       ),
