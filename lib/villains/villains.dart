@@ -5,7 +5,7 @@ import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 
 class VillainController {
-  static Future playAllVillains(BuildContext context, {bool entrance = true, bool didPop}) {
+  static Future playAllVillains(BuildContext context, {bool entrance = true, bool didPop = false}) {
     List<_VillainState> villains = VillainController._allVillainsFor(context)
       ..removeWhere((villain) {
         if(entrance) {
