@@ -1,3 +1,12 @@
+[![license](https://img.shields.io/github/license/Norbert515/flutter_villains.svg)](https://github.com/Norbert515/flutter_villains/blob/master/LICENSE)
+[![stars](https://img.shields.io/github/stars/Norbert515/flutter_villains.svg)](https://github.com/Norbert515/flutter_villains/stargazers)
+[![forks](https://img.shields.io/github/forks/Norbert515/flutter_villains.svg)](https://github.com/Norbert515/flutter_villains/network/members)
+[![Pub](https://img.shields.io/pub/v/flutter_villains.svg)](https://pub.dartlang.org/packages/flutter_villains)
+[![GitHub followers](https://img.shields.io/github/followers/norbert515.svg?style=social&label=Follow)](https://github.com/Norbert515)
+[![Twitter Follow](https://img.shields.io/twitter/follow/norbertkozsir.svg?style=social&label=Follow)](https://twitter.com/norbertkozsir)
+[![Build Status](https://travis-ci.com/Norbert515/flutter_villains.svg?branch=master)](https://travis-ci.com/Norbert515/flutter_villains)
+
+
 ![](https://github.com/Norbert515/flutter_villains/blob/master/assets/icons8-joker-suicide-squad-96.png)
 # flutter_villains
 
