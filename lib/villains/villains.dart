@@ -64,8 +64,27 @@ class VillainController {
     return villains;
   }
 }
-
+/// A widget which animates when a page transition occurs.
+///
+/// This class warps its child in an [AnimatedWidget] and handles its animation
+/// when a page transition happens.
+///
+/// Important: You need to add this to your [MaterialApp]
+/// ```
+/// navigatorObservers: [new VillainTransitionObserver()],
+/// ```
 class Villain extends StatefulWidget {
+
+  const Villain(
+      {Key key,
+        @required this.villainAnimation,
+        this.secondaryVillainAnimation,
+        this.child,
+        this.animateEntrance = true,
+        this.animateExit = true,
+        this.animateReEntrance = true})
+      : super(key: key);
+
   final VillainAnimation villainAnimation;
 
   final VillainAnimation secondaryVillainAnimation;
@@ -74,23 +93,11 @@ class Villain extends StatefulWidget {
 
   final bool animateEntrance;
   final bool animateExit;
-
   final bool animateReEntrance;
 
-  const Villain(
-      {Key key,
-      @required this.villainAnimation,
-      this.secondaryVillainAnimation,
-      this.child,
-      this.animateEntrance = true,
-      this.animateExit = true,
-      this.animateReEntrance = true})
-      : super(key: key);
 
   @override
-  _VillainState createState() {
-    return new _VillainState();
-  }
+  _VillainState createState() => _VillainState();
 }
 
 class _VillainState extends State<Villain> {
