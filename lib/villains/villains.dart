@@ -86,7 +86,6 @@ class Villain extends StatefulWidget {
       : super(key: key);
 
   final VillainAnimation villainAnimation;
-
   final VillainAnimation secondaryVillainAnimation;
 
   final Widget child;
@@ -94,7 +93,6 @@ class Villain extends StatefulWidget {
   final bool animateEntrance;
   final bool animateExit;
   final bool animateReEntrance;
-
 
   @override
   _VillainState createState() => _VillainState();
