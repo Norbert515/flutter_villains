@@ -385,7 +385,7 @@ class VillainTransitionObserver extends NavigatorObserver {
   }
 
   @override
-  void didStartUserGesture() {
+  void didStartUserGesture(Route<dynamic> route, Route<dynamic> previousRoute) {
     _questsEnabled = false;
   }
 

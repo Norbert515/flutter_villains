@@ -17,7 +17,7 @@ class ListVillain extends StatelessWidget {
   }) : primaryAnimation = null, secondaryAnimation = null;
 
   final Widget child;
-  
+
   final VillainAnimation primaryAnimation;
 
   final VillainAnimation secondaryAnimation;

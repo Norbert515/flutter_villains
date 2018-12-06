@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_villains/villains/villains.dart';
 import 'gallery/villain_transition.dart';
 import 'profile/profile.dart';
-
+import 'package:flutter/foundation.dart'
+    show debugDefaultTargetPlatformOverride;
 void main() {
  // timeDilation = 2.5;
   runApp(new MyApp());
