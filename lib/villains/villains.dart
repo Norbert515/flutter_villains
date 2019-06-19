@@ -101,6 +101,11 @@ class Villain extends StatefulWidget {
 class _VillainState extends State<Villain> {
   Animation<double> _controllerAnimation;
 
+  @override
+  void dispose() {
+    _controllerAnimation?.removeStatusListener(_handleStatusChange);
+    super.dispose();
+  }
 
   void startAnimation(Animation<double> animation) {
     assert(animation != null);
@@ -116,7 +121,6 @@ class _VillainState extends State<Villain> {
       return _controllerAnimation;
     }
     return AlwaysStoppedAnimation<double>(1.0);
-
   }
 
   void _handleStatusChange(AnimationStatus status) {
