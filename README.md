@@ -30,7 +30,7 @@ Using this library you just wrap your widget you'd like to be animated when a pa
 ## Installation
 ```
 dependencies:
-  flutter_villains: "^1.2.0"
+  flutter_villains: "^1.2.1"
 ```
 Run packages get and **import**:
 ```
