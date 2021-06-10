@@ -36,9 +36,9 @@ class _PictureGridPageState extends State<PictureGridPage> {
 }
 
 class PictureDetailPage extends StatefulWidget {
-  final String url;
+  final String? url;
 
-  const PictureDetailPage({Key key, this.url}) : super(key: key);
+  const PictureDetailPage({Key? key, this.url}) : super(key: key);
 
   @override
   _PictureDetailPageState createState() => new _PictureDetailPageState();
@@ -65,8 +65,8 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Hero(
-              tag: widget.url,
-              child: new Image.network(widget.url),
+              tag: widget.url!,
+              child: new Image.network(widget.url!),
             ),
             new Villain(
               villainAnimation: VillainAnimation.fromBottom(),
