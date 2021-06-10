@@ -1,27 +1,29 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 
 class VillainController {
-  static Future playAllVillains(BuildContext context, {bool entrance = true, bool didPop = false}) {
+  static Future playAllVillains(BuildContext context,
+      {bool entrance = true, bool didPop = false}) {
     List<_VillainState> villains = VillainController._allVillainsFor(context)
       ..removeWhere((villain) {
-        if(entrance) {
-          if(!villain.widget.animateEntrance) return true;
+        if (entrance) {
+          if (!villain.widget.animateEntrance) return true;
         } else {
-          if(!villain.widget.animateExit) return true;
+          if (!villain.widget.animateExit) return true;
         }
-        if(didPop) {
-          if(!villain.widget.animateReEntrance) return true;
+        if (didPop) {
+          if (!villain.widget.animateReEntrance) return true;
         }
         return false;
       });
 
     // Controller for the new page animation because it can be longer then the actual page transition
 
-    AnimationController controller = new AnimationController(vsync: TransitionTickerProvider(TickerMode.of(context)));
+    AnimationController controller = new AnimationController(
+        vsync: TransitionTickerProvider(TickerMode.of(context)));
 
     SequenceAnimationBuilder builder = new SequenceAnimationBuilder();
 
@@ -64,6 +66,7 @@ class VillainController {
     return villains;
   }
 }
+
 /// A widget which animates when a page transition occurs.
 ///
 /// This class warps its child in an [AnimatedWidget] and handles its animation
@@ -74,15 +77,14 @@ class VillainController {
 /// navigatorObservers: [new VillainTransitionObserver()],
 /// ```
 class Villain extends StatefulWidget {
-
   const Villain(
       {Key key,
-        @required this.villainAnimation,
-        this.secondaryVillainAnimation,
-        this.child,
-        this.animateEntrance = true,
-        this.animateExit = true,
-        this.animateReEntrance = true})
+      @required this.villainAnimation,
+      this.secondaryVillainAnimation,
+      this.child,
+      this.animateEntrance = true,
+      this.animateExit = true,
+      this.animateReEntrance = true})
       : super(key: key);
 
   final VillainAnimation villainAnimation;
@@ -124,7 +126,8 @@ class _VillainState extends State<Villain> {
   }
 
   void _handleStatusChange(AnimationStatus status) {
-    if (status == AnimationStatus.dismissed || status == AnimationStatus.completed) {
+    if (status == AnimationStatus.dismissed ||
+        status == AnimationStatus.completed) {
       if (_controllerAnimation != null) {
         _controllerAnimation.removeStatusListener(_handleStatusChange);
         setState(() {
@@ -137,10 +140,15 @@ class _VillainState extends State<Villain> {
   @override
   Widget build(BuildContext context) {
     Widget animatedWidget = widget.villainAnimation.animatedWidgetBuilder(
-        widget.villainAnimation.animatable.chain(CurveTween(curve: widget.villainAnimation.curve)).animate(_animation), widget.child);
+        widget.villainAnimation.animatable
+            .chain(CurveTween(curve: widget.villainAnimation.curve))
+            .animate(_animation),
+        widget.child);
     if (widget.secondaryVillainAnimation != null) {
       animatedWidget = widget.secondaryVillainAnimation.animatedWidgetBuilder(
-          widget.secondaryVillainAnimation.animatable.chain(CurveTween(curve: widget.secondaryVillainAnimation.curve)).animate(_animation),
+          widget.secondaryVillainAnimation.animatable
+              .chain(CurveTween(curve: widget.secondaryVillainAnimation.curve))
+              .animate(_animation),
           animatedWidget);
     }
 
@@ -150,7 +158,8 @@ class _VillainState extends State<Villain> {
 
 typedef Widget AnimatedWidgetBuilder(Animation animation, Widget child);
 
-const Duration _kMaterialRouteTransitionLength = const Duration(milliseconds: 300);
+const Duration _kMaterialRouteTransitionLength =
+    const Duration(milliseconds: 300);
 
 class VillainAnimation {
   final AnimatedWidgetBuilder animatedWidgetBuilder;
@@ -182,7 +191,8 @@ class VillainAnimation {
           curve: curve,
           from: from,
           to: to,
-          animatable: Tween<Offset>(begin: Offset(-offset, 0.0), end: Offset(0.0, 0.0)),
+          animatable:
+              Tween<Offset>(begin: Offset(-offset, 0.0), end: Offset(0.0, 0.0)),
           animatedWidgetBuilder: (animation, child) {
             return SlideTransition(
               position: animation,
@@ -200,7 +210,8 @@ class VillainAnimation {
           curve: curve,
           from: from,
           to: to,
-          animatable: Tween<Offset>(begin: Offset(offset, 0.0), end: Offset(0.0, 0.0)),
+          animatable:
+              Tween<Offset>(begin: Offset(offset, 0.0), end: Offset(0.0, 0.0)),
           animatedWidgetBuilder: (animation, child) {
             return SlideTransition(
               position: animation,
@@ -218,7 +229,8 @@ class VillainAnimation {
           from: from,
           to: to,
           curve: curve,
-          animatable: Tween<Offset>(begin: Offset(0.0, -offset), end: Offset(0.0, 0.0)),
+          animatable:
+              Tween<Offset>(begin: Offset(0.0, -offset), end: Offset(0.0, 0.0)),
           animatedWidgetBuilder: (animation, child) {
             return SlideTransition(
               position: animation,
@@ -236,7 +248,8 @@ class VillainAnimation {
           from: from,
           to: to,
           curve: curve,
-          animatable: Tween<Offset>(begin: Offset(0.0, relativeOffset), end: Offset(0.0, 0.0)),
+          animatable: Tween<Offset>(
+              begin: Offset(0.0, relativeOffset), end: Offset(0.0, 0.0)),
           animatedWidgetBuilder: (animation, child) {
             return SlideTransition(
               position: animation,
@@ -372,14 +385,12 @@ class VillainTransitionObserver extends NavigatorObserver {
     _prepareVillainTransition(route, previousRoute, true);
   }
 
-
   @override
   void didReplace({Route<dynamic> newRoute, Route<dynamic> oldRoute}) {
     assert(navigator != null);
     assert(newRoute != null);
     _prepareVillainTransition(oldRoute, newRoute, false);
   }
-
 
   @override
   void didRemove(Route<dynamic> route, Route<dynamic> previousRoute) {
@@ -398,8 +409,12 @@ class VillainTransitionObserver extends NavigatorObserver {
     _questsEnabled = true;
   }
 
-  void _prepareVillainTransition(Route<dynamic> fromRoute, Route<dynamic> toRoute, bool didPop) {
-    if (_questsEnabled && toRoute != fromRoute && toRoute is PageRoute<dynamic> && fromRoute is PageRoute<dynamic>) {
+  void _prepareVillainTransition(
+      Route<dynamic> fromRoute, Route<dynamic> toRoute, bool didPop) {
+    if (_questsEnabled &&
+        toRoute != fromRoute &&
+        toRoute is PageRoute<dynamic> &&
+        fromRoute is PageRoute<dynamic>) {
       final PageRoute<dynamic> from = fromRoute;
       final PageRoute<dynamic> to = toRoute;
 
@@ -417,18 +432,22 @@ class VillainTransitionObserver extends NavigatorObserver {
   void _startVillainTransition(PageRoute from, PageRoute to, bool didPop) {
     // If the navigator or one of the routes subtrees was removed before this
     // end-of-frame callback was called, then don't actually start a transition.
-    if (navigator == null || from.subtreeContext == null || to.subtreeContext == null) {
+    if (navigator == null ||
+        from.subtreeContext == null ||
+        to.subtreeContext == null) {
       to.offstage = false; // in case we set this in _maybeStartHeroTransition
       return;
     }
 
     // Can be null because of didReplace and didRemove
-    if(to != null) {
-      VillainController.playAllVillains(to.subtreeContext, entrance: true, didPop: didPop);
+    if (to != null) {
+      VillainController.playAllVillains(to.subtreeContext,
+          entrance: true, didPop: didPop);
     }
 
-    if(to != null) {
-      List<_VillainState> villains2 = VillainController._allVillainsFor(from.subtreeContext);
+    if (to != null) {
+      List<_VillainState> villains2 =
+          VillainController._allVillainsFor(from.subtreeContext);
 
       //The animations from the previous page are driven by the transition animation because the page will not be visible afterwards, any animation after that
       //would be useless
@@ -448,6 +467,7 @@ class TransitionTickerProvider implements TickerProvider {
 
   @override
   Ticker createTicker(TickerCallback onTick) {
-    return new Ticker(onTick, debugLabel: 'created by $this')..muted = !this.enabled;
+    return new Ticker(onTick, debugLabel: 'created by $this')
+      ..muted = !this.enabled;
   }
 }

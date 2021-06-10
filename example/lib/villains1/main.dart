@@ -1,11 +1,11 @@
-import 'package:examples/villains1/list/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_villains/villains/villains.dart';
 import 'gallery/villain_transition.dart';
+import 'list/list.dart';
 import 'profile/profile.dart';
 
 void main() {
- // timeDilation = 2.5;
+  // timeDilation = 2.5;
   runApp(new MyApp());
 }
 
@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
         'profile': (_) => new ProfilePage(),
         'profile_page_2': (_) => new ProfilePage2(),
         'list': (_) => ListPage(),
-
       },
     );
   }
@@ -39,7 +38,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -50,24 +48,26 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new RaisedButton(
-                onPressed: ()=>Navigator.of(context).pushNamed('grid'),
+            new ElevatedButton(
+              onPressed: () => Navigator.of(context).pushNamed('grid'),
               child: new Text("Grid"),
             ),
-            new RaisedButton(
-              onPressed: ()=>Navigator.of(context).pushNamed('profile'),
+            new ElevatedButton(
+              onPressed: () => Navigator.of(context).pushNamed('profile'),
               child: new Text("profile"),
             ),
-            new RaisedButton(
-              onPressed: ()=>Navigator.of(context).pushNamed('profile_page_2'),
+            new ElevatedButton(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed('profile_page_2'),
               child: new Text("profile_page_no_hero"),
             ),
-            new RaisedButton(
-              onPressed: ()=>Navigator.of(context).pushNamed('list'),
+            new ElevatedButton(
+              onPressed: () => Navigator.of(context).pushNamed('list'),
               child: new Text("list"),
             ),
-            new RaisedButton(
-              onPressed: ()=>Navigator.of(context).pushReplacementNamed('profile_page_2'),
+            new ElevatedButton(
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed('profile_page_2'),
               child: new Text("replace with profile_page_no_hero"),
             ),
           ],
@@ -75,8 +75,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-
-
-
 }
