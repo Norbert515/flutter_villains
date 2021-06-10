@@ -3,19 +3,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_villains/villains/villains.dart';
 
 class BlankTransition extends PageRoute {
-  final Widget child;
+  final Widget? child;
 
   BlankTransition(this.child);
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-    return child;
+    return child!;
   }
 
   @override
@@ -27,13 +27,13 @@ class BlankTransition extends PageRoute {
 
 typedef void BuildContextGetter (BuildContext context);
 class TestWidget extends StatelessWidget {
-  final Widget pageToOpen;
+  final Widget? pageToOpen;
 
-  final Key buttonKey;
+  final Key? buttonKey;
 
-  final BuildContextGetter buildContextGetter;
+  final BuildContextGetter? buildContextGetter;
 
-  const TestWidget({Key key, this.pageToOpen, this.buttonKey, this.buildContextGetter}) : super(key: key);
+  const TestWidget({Key? key, this.pageToOpen, this.buttonKey, this.buildContextGetter}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class TestWidget extends StatelessWidget {
         child: Center(child: LayoutBuilder(
           builder: (BuildContext navigatorContext, BoxConstraints constraints) {
             if(buildContextGetter != null) {
-              buildContextGetter(navigatorContext);
+              buildContextGetter!(navigatorContext);
             }
             return MaterialButton(
               onPressed: () {
@@ -60,11 +60,11 @@ class TestWidget extends StatelessWidget {
 
 
 class TestWidgetWithDisabledTickerMode extends StatelessWidget {
-  final Widget pageToOpen;
+  final Widget? pageToOpen;
 
-  final Key buttonKey;
+  final Key? buttonKey;
 
-  const TestWidgetWithDisabledTickerMode({Key key, this.pageToOpen, this.buttonKey}) : super(key: key);
+  const TestWidgetWithDisabledTickerMode({Key? key, this.pageToOpen, this.buttonKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -550,7 +550,7 @@ void main() {
 
     Key openKey = Key('open');
 
-    BuildContext navigatorContext;
+    BuildContext? navigatorContext;
     await tester.pumpWidget(TestWidget(
       pageToOpen: page,
       buttonKey: openKey,
@@ -567,7 +567,7 @@ void main() {
 
 
 
-    Navigator.of(navigatorContext).pop();
+    Navigator.of(navigatorContext!).pop();
     await tester.pump();
 
 
