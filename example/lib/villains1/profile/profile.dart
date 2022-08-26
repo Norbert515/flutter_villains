@@ -20,7 +20,10 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Align(
           alignment: Alignment.centerRight,
           child: GestureDetector(
-            child: Hero(tag: "profile", child: CircleAvatar(backgroundImage: AssetImage("assets/joe-gardner.jpg"))),
+            child: Hero(
+                tag: "profile",
+                child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/joe-gardner.jpg"))),
             onTap: () {
               Navigator.of(context).push(BlankRoute(ProfilePage2()));
             },
@@ -59,26 +62,27 @@ class _ProfilePage2State extends State<ProfilePage2> {
                       Hero(
                           tag: "profile",
                           child: CircleAvatar(
-                            backgroundImage: AssetImage("assets/joe-gardner.jpg"),
+                            backgroundImage:
+                                AssetImage("assets/joe-gardner.jpg"),
                             radius: 50.0,
                           )),
                       SizedBox(
                         height: 16.0,
                       ),
                       Villain(
-                        villainAnimation: VillainAnimation.fromBottom(relativeOffset: 0.4, to: Duration(milliseconds: 150)),
+                        villainAnimation: VillainAnimation.fromBottom(
+                            relativeOffset: 0.4,
+                            to: Duration(milliseconds: 150)),
                         animateExit: false,
                         secondaryVillainAnimation: VillainAnimation.fade(),
                         child: Text(
                           "This is some great text writtin. This is a short summary, containing useful information. This needs to be a bit longer so I'll just keep writing.",
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .body1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       Villain(
-                        villainAnimation: VillainAnimation.fromBottom(relativeOffset: 0.4),
+                        villainAnimation:
+                            VillainAnimation.fromBottom(relativeOffset: 0.4),
                         animateExit: false,
                         secondaryVillainAnimation: VillainAnimation.fade(),
                         child: Divider(
@@ -90,25 +94,44 @@ class _ProfilePage2State extends State<ProfilePage2> {
                         children: <Widget>[
                           Villain(
                             villainAnimation: VillainAnimation.fromBottom(
-                                relativeOffset: 0.8, curve: Curves.fastOutSlowIn, from: Duration(milliseconds: 100), to: Duration(milliseconds: 250)),
+                                relativeOffset: 0.8,
+                                curve: Curves.fastOutSlowIn,
+                                from: Duration(milliseconds: 100),
+                                to: Duration(milliseconds: 250)),
                             secondaryVillainAnimation: VillainAnimation.fade(),
                             animateExit: false,
                             child: Container(
-                              child: Center(child: Text("A", style: TextStyle(color: Colors.white, fontSize: 20.0),)),
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: Color(0xffea4c89)),
+                              child: Center(
+                                  child: Text(
+                                "A",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20.0),
+                              )),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color(0xffea4c89)),
                               width: 32.0,
                               height: 32.0,
                             ),
                           ),
                           Villain(
-                              villainAnimation: VillainAnimation.fromBottom(
-                                  relativeOffset: 0.8, curve: Curves.fastOutSlowIn, from: Duration(milliseconds: 150), to: Duration(milliseconds: 300)),
+                            villainAnimation: VillainAnimation.fromBottom(
+                                relativeOffset: 0.8,
+                                curve: Curves.fastOutSlowIn,
+                                from: Duration(milliseconds: 150),
+                                to: Duration(milliseconds: 300)),
                             secondaryVillainAnimation: VillainAnimation.fade(),
                             animateExit: false,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24.0),
                               child: Container(
-                                child: Center(child: Text("B", style: TextStyle(color: Colors.white, fontSize: 20.0),)),
+                                child: Center(
+                                    child: Text(
+                                  "B",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20.0),
+                                )),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.blueAccent,
@@ -119,13 +142,23 @@ class _ProfilePage2State extends State<ProfilePage2> {
                             ),
                           ),
                           Villain(
-                              villainAnimation: VillainAnimation.fromBottom(
-                                  relativeOffset: 0.8, curve: Curves.fastOutSlowIn, from: Duration(milliseconds: 200), to: Duration(milliseconds: 350)),
+                            villainAnimation: VillainAnimation.fromBottom(
+                                relativeOffset: 0.8,
+                                curve: Curves.fastOutSlowIn,
+                                from: Duration(milliseconds: 200),
+                                to: Duration(milliseconds: 350)),
                             secondaryVillainAnimation: VillainAnimation.fade(),
                             animateExit: false,
                             child: Container(
-                              child: Center(child: Text("C", style: TextStyle(color: Colors.white, fontSize: 20.0),)),
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.redAccent),
+                              child: Center(
+                                  child: Text(
+                                "C",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20.0),
+                              )),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.redAccent),
                               width: 32.0,
                               height: 32.0,
                             ),
@@ -141,7 +174,10 @@ class _ProfilePage2State extends State<ProfilePage2> {
               height: 64.0,
             ),
             Villain(
-              villainAnimation: VillainAnimation.fromBottom(relativeOffset: 0.05, from: Duration(milliseconds: 300), to: Duration(milliseconds: 400)),
+              villainAnimation: VillainAnimation.fromBottom(
+                  relativeOffset: 0.05,
+                  from: Duration(milliseconds: 300),
+                  to: Duration(milliseconds: 400)),
               secondaryVillainAnimation: VillainAnimation.fade(),
               child: Card(
                 child: Center(

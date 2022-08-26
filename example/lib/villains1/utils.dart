@@ -8,10 +8,10 @@ class BlankRoute extends PageRoute {
   BlankRoute(this.child);
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
@@ -33,10 +33,10 @@ class FadeRoute extends PageRoute {
   FadeRoute(this.child);
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
 
   @override
